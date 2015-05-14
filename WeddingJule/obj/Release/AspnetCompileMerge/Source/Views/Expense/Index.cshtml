@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WeddingJule.Models.Expense>
+
+@{
+    ViewBag.Title = "Страница затрат";
+}
+
+<div class="center">
+    <h2>Затраты</h2>
+</div>
+
+<p>
+    @Html.ActionLink("Создать новую запись о затратах", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ExpenseID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ExpenseID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ExpenseID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div id="total">
+    <p>Итого потрачено:  @Model.Sum(p=>p.price)</p>
+</div>
