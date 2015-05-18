@@ -12,4 +12,4 @@ namespace WeddingJule5.Models
 
         public IEnumerable<Expense> expenses { get; set; }
     }
-}
+} 

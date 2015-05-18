@@ -11,7 +11,7 @@ namespace WeddingJule5.Controllers
     public class HomeController : Controller
     {
         ExpenseContext db = new ExpenseContext();
-
+         
         // Выводим всех футболистов
         public ActionResult Index()
         {
