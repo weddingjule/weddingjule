@@ -1,0 +1,1 @@
+# weddingjule5  initgit add README.mdgit commit -m "first commit"git remote add origin https://github.com/weddingjule/weddingjule5.gitgit push -u origin master
