@@ -9,7 +9,7 @@ namespace WeddingJule5.Models
     {
         public int Id { get; set; }
         public string name { get; set; }
-
         public IEnumerable<Expense> expenses { get; set; }
+        //проверяем наличие чекина
     }
-} 
+}  
