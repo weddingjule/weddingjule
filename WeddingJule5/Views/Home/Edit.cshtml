@@ -1,0 +1,27 @@
+﻿@model WeddingJule5.Models.Expense
+
+@{
+    ViewBag.Title = "Редактирование траты";
+}
+
+<h2>Редактирование траты</h2>
+
+<form method="post">
+    <fieldset>
+        <legend>Затрата</legend>
+        @Html.HiddenFor(model=>model.ExpenseID)
+        <p>
+            Введите наименование траты: <br />
+            @Html.EditorFor(model => model.name)
+        </p>
+        <p>
+            Введите стоимость: <br />
+            @Html.EditorFor(model => model.price)
+        </p>
+        <p>
+            Выберите категорию траты: <br />
+            @Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList)
+        </p>
+        <input type="submit" value="Сохранить изменения" />
+    </fieldset>
+</form>

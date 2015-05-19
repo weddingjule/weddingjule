@@ -14,7 +14,7 @@
     <tr>
         <th>Наименование затраты</th>
         <th>Цена</th>
-        <th>Категория затртаы</th>
+        <th>Категория затраты</th>
     </tr>
 
     @foreach (var item in Model)
@@ -29,6 +29,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Category.name)
             </td>
+            <td>
+                @Html.ActionLink("Изменить", "Edit", new { id = item.ExpenseID })
+            </td>
+            <td>
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ExpenseID })
+            </td>
         </tr>
     }
 </table>
@@ -38,5 +44,5 @@
 </div>
 
 <p>
-    @Html.ActionLink("Список категорий", "ListTeams")
+    @Html.ActionLink("Список категорий", "ListCategories")
 </p>
