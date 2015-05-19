@@ -13,21 +13,24 @@ namespace WeddingJule.Helpers
         public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            for (int i = 1; i <= pageInfo.TotalPages; i++)
+            if (pageInfo.TotalPages > 1)
             {
-                TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
-                // если текущая страница, то выделяем ее,
-                // например, добавляя класс
-                if (i == pageInfo.PageNumber)
+                for (int i = 1; i <= pageInfo.TotalPages; i++)
                 {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.MergeAttribute("href", pageUrl(i));
+                    tag.InnerHtml = i.ToString();
+                    // если текущая страница, то выделяем ее,
+                    // например, добавляя класс
+                    if (i == pageInfo.PageNumber)
+                    {
+                        tag.AddCssClass("selected");
+                        tag.AddCssClass("btn-primary");
+                    }
+                    tag.AddCssClass("btn btn-default");
+                    tag.AddCssClass("paging");
+                    result.Append(tag.ToString());
                 }
-                tag.AddCssClass("btn btn-default");
-                tag.AddCssClass("paging");
-                result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());
         }

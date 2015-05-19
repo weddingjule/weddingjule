@@ -26,7 +26,7 @@ namespace WeddingJule.Controllers
             categories.Insert(0, new Category { name = "Все", Id = 0 });
 
             IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allExpenses.Count() };
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = expenses.Count() };
 
             ExpenseViewModel plvm = new ExpenseViewModel
             {
