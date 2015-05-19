@@ -1,8 +1,10 @@
-﻿@model IEnumerable<WeddingJule5.Models.Expense>
+﻿
+@using WeddingJule5.Helpers
+@model WeddingJule5.Models.IndexViewModel
+
 @{
     ViewBag.Title = "Список затрат";
 }
-
 
 <div class="center">
     <h2>Затраты</h2>
@@ -10,7 +12,7 @@
 <p>
     @Html.ActionLink("Добавить затрату", "Create")
 </p>
-<table>
+<table >
     <tr>
         <th>Наименование затраты</th>
         <th>Цена</th>
@@ -18,7 +20,7 @@
         <th>Дата</th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.PageExpenses)
     {
         <tr>
             <td>
@@ -33,10 +35,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.date)
             </td>
-            <td>
+            <td class="narrow">
                 @Html.ActionLink("Изменить", "Edit", new { id = item.ExpenseID })
             </td>
-            <td>
+            <td class="narrow">
                 @Html.ActionLink("Удалить", "Delete", new { id = item.ExpenseID })
             </td>
         </tr>
@@ -44,7 +46,15 @@
 </table>
 
 <div id="total">
-    <p>Итого потрачено:  @Model.Sum(p => p.price)</p>
+    <p>Итого потрачено:  @Model.PageExpenses.Sum(p => p.price)</p>
+</div>
+<div id="total">
+    <p>Все траты:  @Model.AllExpenses.Sum(p => p.price)</p>
+</div>
+
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
 </div>
 
 <p>

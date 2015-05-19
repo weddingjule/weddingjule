@@ -2,6 +2,36 @@
 body {font-family: 'Times New Roman'; font-size:large; background-color:ivory; color:black; }
 DIV#total{background-color:black; color:white; font-family:'Times New Roman'; font-weight:700}
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table, th, td {
+    border: 1px solid green;
+}
+
+th {
+    height: 50px;
+    text-align: center;
+    background-color: green;
+    color: white;
+}
+
+td {
+    height: 20px;
+    vertical-align: central;
+    padding: 15px;
+}
+
+td.narrow{
+ width: 50px;   
+}
+
+td.narrow{
+ width: 50px;   
+}
+
 .center
 {
     text-align: center;

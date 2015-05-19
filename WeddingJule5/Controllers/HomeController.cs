@@ -10,14 +10,16 @@ namespace WeddingJule5.Controllers
 {
     public class HomeController : Controller
     {
-        ExpenseContext db = new ExpenseContext();
-         
-        // Выводим всех футболистов
-        public ActionResult Index()
+        ExpenseContext db = new ExpenseContext();         
+
+        public ActionResult Index(int page = 1)
         {
+            int pageSize = 10; // количество объектов на страницу
             var expenses = db.Expenses.Include(p => p.Category);
-            //var expenses = db.Expenses;
-            return View(expenses.ToList());
+            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p=>p.date).Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = expenses.Count() };
+            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, PageExpenses = expensesPerPages, AllExpenses = expenses };
+            return View(ivm);
         }
 
         public ActionResult ListCategories(int? id)
