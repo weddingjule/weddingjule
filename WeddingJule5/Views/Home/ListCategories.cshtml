@@ -1,0 +1,30 @@
+﻿@using WeddingJule5.Models
+@model Category
+
+@{
+    ViewBag.Title = "Категория " + @Model.name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h4>Категория @Model.name</h4>
+    <hr />
+    <dl>
+        <dt>Название</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>Затраты</dt>
+
+        <dd>
+            <ul>
+                @foreach (Expense expense in Model.expenses)
+                {
+                    <li>@expense.name = @expense.price = @expense.date</li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>

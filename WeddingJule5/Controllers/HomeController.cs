@@ -101,6 +101,7 @@ namespace WeddingJule5.Controllers
         [HttpPost]
         public ActionResult Delete(Expense expense)
         {
+            db.Expenses.Attach(expense);
             db.Expenses.Remove(expense);
             db.SaveChanges();
             return RedirectToAction("Index");

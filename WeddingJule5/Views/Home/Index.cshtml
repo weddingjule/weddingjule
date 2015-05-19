@@ -15,6 +15,7 @@
         <th>Наименование затраты</th>
         <th>Цена</th>
         <th>Категория затраты</th>
+        <th>Дата</th>
     </tr>
 
     @foreach (var item in Model)
@@ -28,6 +29,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
             </td>
             <td>
                 @Html.ActionLink("Изменить", "Edit", new { id = item.ExpenseID })
