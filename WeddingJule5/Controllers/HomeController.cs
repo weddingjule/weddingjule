@@ -12,14 +12,32 @@ namespace WeddingJule.Controllers
     {
         ExpenseContext db = new ExpenseContext();         
 
-        public ActionResult Index(int page = 1)
+        public ActionResult Index(int page = 1, int? category = null)
         {
+            IEnumerable<Expense> allExpenses = db.Expenses.Include(p => p.Category);
+
             int pageSize = 10; // количество объектов на страницу
-            var expenses = db.Expenses.Include(p => p.Category);
-            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p=>p.date).Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = expenses.Count() };
-            IndexViewModel ivm = new IndexViewModel { PageInfo = pageInfo, PageExpenses = expensesPerPages, AllExpenses = expenses };
-            return View(ivm);
+            IQueryable<Expense> expenses = allExpenses.AsQueryable<Expense>();
+            if (category != null && category != 0)
+                expenses = expenses.Where(p => p.CategoryId == category);
+
+            List<Category> categories = db.Categories.ToList();
+            // устанавливаем начальный элемент, который позволит выбрать всех
+            categories.Insert(0, new Category { name = "Все", Id = 0 });
+
+            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((page - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allExpenses.Count() };
+
+            ExpenseViewModel plvm = new ExpenseViewModel
+            {
+                Expenses = expenses.ToList(),
+                Categories = new SelectList(categories, "Id", "name"),
+                PageInfo = pageInfo,
+                PageExpenses = expensesPerPages,
+                AllExpenses = allExpenses
+            };
+
+            return View(plvm);
         }
 
         public ActionResult ListCategories(int? id)

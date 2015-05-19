@@ -10,5 +10,9 @@ namespace WeddingJule.Models
     {
         public IEnumerable<Expense> Expenses { get; set; }
         public SelectList Categories { get; set; }
+
+        public IEnumerable<Expense> PageExpenses { get; set; }
+        public IEnumerable<Expense> AllExpenses { get; set; }
+        public PageInfo PageInfo { get; set; }
     }
 }

@@ -15,10 +15,4 @@ namespace WeddingJule.Models
             get { return (int)Math.Ceiling((decimal)TotalItems / PageSize); }
         }
     }
-    public class IndexViewModel
-    {
-        public IEnumerable<Expense> PageExpenses { get; set; }
-        public IEnumerable<Expense> AllExpenses { get; set; }
-        public PageInfo PageInfo { get; set; }
-    }
 }
