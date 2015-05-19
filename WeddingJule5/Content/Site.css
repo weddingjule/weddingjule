@@ -40,3 +40,23 @@ td.narrow{
     border-width:medium;
     border-color:black
 }
+
+.paging a 
+{
+    text-decoration: none;
+    font-size: 40px; /* Размер шрифта */
+}
+
+A:visited {
+    text-decoration: none;
+}
+
+A:active {
+    text-decoration: none;
+}
+
+.paging a:hover {
+    font-size: 60px; /* Размер шрифта */
+    font-weight: bold; /* Жирное начертание */
+    color: red; /* Цвет ссылки */
+}

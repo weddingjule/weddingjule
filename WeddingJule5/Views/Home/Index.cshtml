@@ -53,7 +53,8 @@
 </div>
 
 <br />
-<div class="btn-group">
+
+<div class="paging">
     @Html.PageLinks(Model.PageInfo, x => Url.Action("Index", new { page = x }))
 </div>
 
