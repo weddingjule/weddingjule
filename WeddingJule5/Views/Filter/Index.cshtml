@@ -1,0 +1,41 @@
+﻿@model WeddingJule.Models.ExpenseViewModel
+
+@{
+    ViewBag.Title = "Каталог затрат";
+}
+
+<h2>Каталог затрат</h2>
+
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Отдел: </label>
+        @Html.DropDownList("category", Model.Categories as SelectList, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+    </div>
+</form>
+
+<table>
+    <tr>
+        <th>Наименование затраты</th>
+        <th>Цена</th>
+        <th>Категория затраты</th>
+        <th>Дата</th>
+    </tr>
+    @foreach (var item in Model.Expenses)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+        </tr>
+    }
+</table>

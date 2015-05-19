@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WeddingJule5.Models;
+using WeddingJule.Models;
 using System.Data.Entity;
 
-namespace WeddingJule5.Controllers
+namespace WeddingJule.Controllers
 {
     public class HomeController : Controller
     {

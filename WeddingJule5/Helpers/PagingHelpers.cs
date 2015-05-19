@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using WeddingJule5.Models;
+using WeddingJule.Models;
 
-namespace WeddingJule5.Helpers
+namespace WeddingJule.Helpers
 {
     public static class PagingHelpers
     {

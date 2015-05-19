@@ -1,19 +1,19 @@
-namespace WeddingJule5.Migrations
+namespace WeddingJule.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WeddingJule5.Models.ExpenseContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<WeddingJule.Models.ExpenseContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "WeddingJule5.Models.ExpenseContext";
+            ContextKey = "WeddingJule.Models.ExpenseContext";
         }
 
-        protected override void Seed(WeddingJule5.Models.ExpenseContext context)
+        protected override void Seed(WeddingJule.Models.ExpenseContext context)
         {
             //  This method will be called after migrating to the latest version.
 

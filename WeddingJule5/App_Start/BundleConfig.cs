@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace WeddingJule5
+namespace WeddingJule
 {
     public class BundleConfig
     {

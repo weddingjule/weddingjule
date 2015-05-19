@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace WeddingJule5
+namespace WeddingJule
 {
     public class FilterConfig
     {

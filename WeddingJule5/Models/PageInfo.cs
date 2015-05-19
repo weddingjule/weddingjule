@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WeddingJule5.Models
+namespace WeddingJule.Models
 {
     public class PageInfo
     {

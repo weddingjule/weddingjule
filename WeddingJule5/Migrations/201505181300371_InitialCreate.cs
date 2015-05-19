@@ -1,4 +1,4 @@
-namespace WeddingJule5.Migrations
+namespace WeddingJule.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
