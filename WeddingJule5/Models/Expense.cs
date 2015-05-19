@@ -12,6 +12,7 @@ namespace WeddingJule5.Models
         [Display(Name = "Наименование траты")]
         public string name { get; set; }
         [Display(Name = "Стоимость")]
+        [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal price { get; set; }
         [Display(Name="Дата")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
