@@ -14,9 +14,9 @@ namespace WeddingJule.Models
         [Display(Name = "Стоимость")]
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal price { get; set; }
-        [Display(Name="Дата")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}",
-               ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата рождения")]
         public DateTime date { get; set; }
 
         public int? CategoryId { get; set; }
