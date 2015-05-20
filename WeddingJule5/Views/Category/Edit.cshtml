@@ -1,0 +1,18 @@
+﻿@model WeddingJule.Models.Category
+
+@{
+    ViewBag.Title = "Редактирование категории";
+}
+
+<h2>Редактирование категории</h2>
+<form method="post">
+    <fieldset>
+        <legend>Затрата</legend>
+        @Html.HiddenFor(model => model.Id)
+        <p>
+            Введите наименование категории: <br />
+            @Html.EditorFor(model => model.name)
+        </p>
+        <input type="submit" value="Сохранить изменения" />
+    </fieldset>
+</form>

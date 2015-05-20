@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Добавление новой категории";
+}
+@model WeddingJule.Models.Category
+
+<h2>Добавление новой категории</h2>
+<form method="post">
+    <fieldset>
+        <legend>Категория</legend>
+        <p>
+            Введите наименование категории: <br />
+            @Html.EditorFor(model => model.name)
+        </p>
+        <input type="submit" value="Добавить категорию" />
+    </fieldset>
+</form>

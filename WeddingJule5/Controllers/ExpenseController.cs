@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace WeddingJule.Controllers
 {
-    public class HomeController : Controller
+    public class ExpenseController : Controller
     {
         ExpenseContext db = new ExpenseContext();         
 

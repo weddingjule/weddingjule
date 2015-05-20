@@ -1,0 +1,46 @@
+﻿@model WeddingJule.Models.Category
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Удалить категорию</title>
+</head>
+<body>
+
+    <form method="post">
+        <h3>Удалить категорию @Model.name?</h3>
+        @Html.HiddenFor(model => model.Id)
+
+        <h4>Затраты категории</h4>
+        <table>
+            <tr>
+                <th>Наименование затраты</th>
+                <th>Цена</th>
+                <th>Категория затраты</th>
+                <th>Дата</th>
+            </tr>
+
+            @foreach (WeddingJule.Models.Expense expense in Model.expenses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => expense.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => expense.price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => expense.Category.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => expense.date)
+                    </td>
+                </tr>
+            }
+        </table>
+        <input type="submit" value="Удалить" />
+    </form>
+</body>
+</html>
