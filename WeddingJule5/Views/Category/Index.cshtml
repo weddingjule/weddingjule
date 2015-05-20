@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WeddingJule.Models.Category>
+﻿@model IEnumerable<WeddingJule.Models.CategoryViewModel>
 
 <!DOCTYPE html>
 
@@ -8,14 +8,19 @@
     <title>Список категорий</title>
 </head>
 <body>
-    <h2>Список категорий</h2>
+    <div class="center">
+        <h2>Список категорий</h2>
+    </div>
     <p>
         @Html.ActionLink("Добавить новую категорию", "Create")
     </p>
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                Категория
+            </th>
+            <th>
+                Итого потрачено
             </th>
             <th>
             </th>
@@ -24,11 +29,14 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.name)
+                @Html.DisplayFor(modelItem => item.category.name)
+            </td>
+            <td>                
+                @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
             </td>
             <td>
-                @Html.ActionLink("Изменить", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
+                @Html.ActionLink("Изменить", "Edit", new { id=item.category.Id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id=item.category.Id })
             </td>
         </tr>
     }    

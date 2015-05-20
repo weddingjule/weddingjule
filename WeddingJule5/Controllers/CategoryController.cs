@@ -15,7 +15,17 @@ namespace WeddingJule.Controllers
         public ActionResult Index()
         {
             IEnumerable<Category> categories = db.Categories.AsEnumerable<Category>();
-            return View(categories);
+            CategoryViewModel[] categoryViewModels = new CategoryViewModel[categories.Count<Category>()];
+            for(int i=0; i<categories.Count<Category>(); i++)
+            {
+                Category category = categories.ElementAt<Category>(i);
+                category.expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id);
+                decimal totalCategoryPrice = category.expenses.Sum<Expense>(e=>e.price);
+                string totalCategoryPriceString = string.Format("{0:N}", totalCategoryPrice);
+                categoryViewModels[i] = new CategoryViewModel() { category = category, totalCategoryPriceString = totalCategoryPriceString };
+            }
+
+            return View(categoryViewModels.AsEnumerable<CategoryViewModel>());
         }
 
         [HttpGet]
