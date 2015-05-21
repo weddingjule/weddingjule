@@ -2,7 +2,7 @@
     ViewBag.Title = "Добавление новой затрататы";
 }
 
-@model WeddingJule.Models.Expense
+@model WeddingJule.Models.CreateExpenseViewModel
 
 <h2>Добавление новой затраты</h2>
 
@@ -11,19 +11,19 @@
         <legend>Затрата</legend>
         <p>
             Введите наименование траты: <br />
-            @Html.EditorFor(model => model.name)
+            @Html.EditorFor(model => model.expense.name)
         </p>
         <p>
             Введите стоимость: <br />
-            @Html.EditorFor(model => model.price)
+            @Html.EditorFor(model => model.expense.price)
         </p>
         <p>
             Введите дату: <br />
-            @Html.EditorFor(model => model.date)
+            @Html.EditorFor(model => model.expense.date)
         </p>
         <p>
             Выберите категорию траты: <br />
-            @Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList)
+            @Html.DropDownListFor(model=>model.categoryId, Model.Categories as SelectList)
         </p>        
         <input type="submit" value="Добавить затрату"/>
     </fieldset>

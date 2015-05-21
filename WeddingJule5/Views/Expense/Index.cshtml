@@ -10,7 +10,7 @@
     <h2>Затраты</h2>
 </div>
 <p>
-    @Html.ActionLink("Добавить затрату", "Create")
+    @Html.ActionLink("Добавить затрату", "Create", new { category = Model.category})
 </p>
 
 <form method="get">

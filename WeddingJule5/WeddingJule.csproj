@@ -134,6 +134,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\CreateExpenseViewModel.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseContext.cs" />
     <Compile Include="Models\ExpenseViewModel.cs" />

@@ -58,19 +58,21 @@ namespace WeddingJule.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult Create(int? category)
         {
             SelectList categories = new SelectList(db.Categories, "Id", "name");
-            ViewBag.Categories = categories;
-            return View();
+            CreateExpenseViewModel cevm = new CreateExpenseViewModel() { Categories = categories, categoryId = category };
+            return View(cevm);
         }
 
         [HttpPost]
-        public ActionResult Create(Expense expense)
+        public ActionResult Create(CreateExpenseViewModel cevm)
         {
+            Expense expense = cevm.expense;
+            expense.CategoryId = cevm.categoryId;
             db.Expenses.Add(expense);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpGet]
@@ -89,7 +91,7 @@ namespace WeddingJule.Controllers
                 return View(expense);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpPost]
@@ -116,16 +118,17 @@ namespace WeddingJule.Controllers
             if (expense != null)
                 return View(expense);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpPost]
         public ActionResult Delete(Expense expense)
         {
+            int? categoryId = expense.CategoryId;
             db.Expenses.Attach(expense);
             db.Expenses.Remove(expense);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1, category = categoryId });
         }
     }
 }
