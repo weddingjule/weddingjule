@@ -10,9 +10,9 @@ namespace WeddingJule.Controllers
 {
     public class ExpenseController : Controller
     {
-        ExpenseContext db = new ExpenseContext();         
+        ExpenseContext db = new ExpenseContext();
 
-        public ActionResult Index(int page = 1, int? category = null)
+        public ActionResult Index(int PageNumber = 1, int? category = null)
         {
             IEnumerable<Expense> allExpenses = db.Expenses.Include(p => p.Category);
 
@@ -25,13 +25,14 @@ namespace WeddingJule.Controllers
             // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Все", Id = 0 });
 
-            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((page - 1) * pageSize).Take(pageSize);
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = expenses.Count() };
+            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((PageNumber - 1) * pageSize).Take(pageSize);
+            PageInfo pageInfo = new PageInfo { PageNumber = PageNumber, PageSize = pageSize, TotalItems = expenses.Count() };
 
             ExpenseViewModel plvm = new ExpenseViewModel
             {
                 Expenses = expenses.ToList(),
                 Categories = new SelectList(categories, "Id", "name"),
+                category = category,
                 PageInfo = pageInfo,
                 PageExpenses = expensesPerPages,
                 AllExpenses = allExpenses
@@ -96,7 +97,7 @@ namespace WeddingJule.Controllers
         {
             db.Entry(expense).State = EntityState.Modified;
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId});
         }
 
 

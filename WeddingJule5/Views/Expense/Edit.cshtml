@@ -14,8 +14,9 @@
             Введите наименование траты: <br />
             @Html.EditorFor(model => model.name)
         </p>
-        <p>
-            Введите стоимость: <br />
+        <p>            
+            @Html.HiddenFor(model => model.price)
+            @Html.LabelFor(model => model.price, "Введите стоимость:")<br/>
             @Html.EditorFor(model => model.price)
         </p>
         <p>
