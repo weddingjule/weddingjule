@@ -16,8 +16,7 @@
 <form method="get">
     <div class="form-inline">
         <label class="control-label">Категория: </label>
-        @Html.DropDownListFor(model=>model.category, Model.Categories, htmlAttributes: new { @class = "form-control" })
-        <input type="submit" value="Фильтр" class="btn btn-default" />
+        @Html.DropDownListFor(model => model.category, Model.Categories, new { PageNumber = 1,  @onchange = "this.form.submit();" })
     </div>
 </form>
 
