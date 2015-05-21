@@ -55,10 +55,10 @@
 </table>
 
 <div id="total">
-    <p>Итого потрачено:  @Model.PageExpenses.Sum(p => p.price)</p>
+    <p>Итого потрачено:  @Model.PageExpenses.Sum(p => p.price).ToString("N")</p>
 </div>
 <div id="total">
-    <p>Все траты:  @Model.AllExpenses.Sum(p => p.price)</p>
+    <p>Все траты:  @Model.AllExpenses.Sum(p => p.price).ToString("N")</p>
 </div>
 
 <br />
