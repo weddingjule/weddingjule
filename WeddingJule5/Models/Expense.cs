@@ -24,7 +24,7 @@ namespace WeddingJule.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Дата рождения")]
+        [Display(Name = "Дата транзакции")]
         public DateTime date { get; set; }
 
         public int? CategoryId { get; set; }
