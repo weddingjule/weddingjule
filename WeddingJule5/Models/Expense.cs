@@ -9,11 +9,19 @@ namespace WeddingJule.Models
     public class Expense
     {
         public int ExpenseID { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
         [Display(Name = "Наименование траты")]
         public string name { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
         public decimal price { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата рождения")]

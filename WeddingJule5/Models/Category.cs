@@ -9,8 +9,11 @@ namespace WeddingJule.Models
     public class Category
     {
         public int Id { get; set; }
+
+        [Required]
         [Display(Name = "Категория траты")]
         public string name { get; set; }
+
         public IEnumerable<Expense> expenses { get; set; }
         //проверяем наличие чекина
     }

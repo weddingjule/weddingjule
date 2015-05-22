@@ -12,14 +12,17 @@
         <p>
             Введите наименование траты: <br />
             @Html.EditorFor(model => model.expense.name)
+            @Html.ValidationMessageFor(model=>model.expense.name)
         </p>
         <p>
             Введите стоимость: <br />
             @Html.EditorFor(model => model.expense.price)
+            @Html.ValidationMessageFor(model => model.expense.price)
         </p>
         <p>
             Введите дату: <br />
             @Html.EditorFor(model => model.expense.date)
+            @Html.ValidationMessageFor(model => model.expense.date)
         </p>
         <p>
             Выберите категорию траты: <br />

@@ -10,6 +10,7 @@
         <p>
             Введите наименование категории: <br />
             @Html.EditorFor(model => model.name)
+            @Html.ValidationMessageFor(model=>model.name)
         </p>
         <input type="submit" value="Добавить категорию" />
     </fieldset>
