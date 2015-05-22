@@ -1,5 +1,5 @@
 ﻿
-body {font-family: 'Times New Roman'; font-size:large; background-color:ivory; color:black; }
+body {font-family: 'Times New Roman'; font-size:large; background-color:ivory; color:black; margin-left:10px; margin-right:10px; }
 DIV#total{background-color:black; color:white; font-family:'Times New Roman'; font-weight:700}
 
 table {
@@ -41,22 +41,13 @@ td.narrow{
     border-color:black
 }
 
-.paging a 
-{
-    text-decoration: none;
-    font-size: 40px; /* Размер шрифта */
+.field-validation-error {
+    color: #6699CC;
+    font-weight:bold;
+    text-decoration:underline;
 }
-
-A:visited {
-    text-decoration: none;
-}
-
-A:active {
-    text-decoration: none;
-}
-
-.paging a:hover {
-    font-size: 60px; /* Размер шрифта */
-    font-weight: bold; /* Жирное начертание */
-    color: red; /* Цвет ссылки */
+ 
+input.input-validation-error {
+    border: 1px solid #006699;
+    background-color: silver;
 }

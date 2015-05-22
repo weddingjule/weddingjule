@@ -20,11 +20,14 @@ namespace WeddingJule.Helpers
                     TagBuilder tag = new TagBuilder("a");
                     tag.MergeAttribute("href", pageUrl(i));
                     tag.InnerHtml = i.ToString();
-                    tag.AddCssClass("paging");
                     // если текущая страница, то выделяем ее,
                     // например, добавляя класс
                     if (i == pageInfo.PageNumber)
-                        tag.MergeAttribute("style", "color:red");
+                    {
+                        tag.AddCssClass("selected");
+                        tag.AddCssClass("btn-primary");
+                    }
+                    tag.AddCssClass("btn btn-default");
                     result.Append(tag.ToString());
                 }
             }
