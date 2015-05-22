@@ -37,9 +37,14 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult Create(Category category)
         {
-            db.Categories.Add(category);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.Categories.Add(category);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                return Create();
         }
 
         [HttpGet]
@@ -61,9 +66,14 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult Edit(Category category)
         {
-            db.Entry(category).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+                return Edit(category.Id);
         }
 
 

@@ -68,11 +68,16 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult Create(CreateExpenseViewModel cevm)
         {
-            Expense expense = cevm.expense;
-            expense.CategoryId = cevm.categoryId;
-            db.Expenses.Add(expense);
-            db.SaveChanges();
-            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+            if (ModelState.IsValid)
+            {
+                Expense expense = cevm.expense;
+                expense.CategoryId = cevm.categoryId;
+                db.Expenses.Add(expense);
+                db.SaveChanges();
+                return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+            }
+            else
+                return Create(cevm.expense.CategoryId);
         }
 
         [HttpGet]
@@ -97,9 +102,14 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult Edit(Expense expense)
         {
-            db.Entry(expense).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId});
+            if (ModelState.IsValid)
+            {
+                db.Entry(expense).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+            }
+
+            return Edit(expense.ExpenseID);
         }
 
 
