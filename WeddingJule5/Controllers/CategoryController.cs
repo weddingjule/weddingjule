@@ -114,5 +114,13 @@ namespace WeddingJule.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public JsonResult CheckCategoryName(string name)
+        {
+            bool isCategoryNameExists = db.Categories.Any<Category>(c => c.name == name);
+            var result = !isCategoryNameExists;
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

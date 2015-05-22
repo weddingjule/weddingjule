@@ -10,18 +10,19 @@ namespace WeddingJule.Models
     {
         public int ExpenseID { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Наименование траты не может быть пустым")]
         [DataType(DataType.Text)]
         [Display(Name = "Наименование траты")]
         public string name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Стоимость должна быть задана")]
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
         [DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        [Range(typeof(decimal), "0,01", "50000,00")]
         public decimal price { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Дата должна быть задана")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата транзакции")]
