@@ -12,7 +12,7 @@ namespace WeddingJule.Controllers
     {
         ExpenseContext db = new ExpenseContext();
 
-        public ActionResult Index()
+        public ActionResult ListCategory()
         {
             IEnumerable<Category> categories = db.Categories.AsEnumerable<Category>();
             CategoryViewModel[] categoryViewModels = new CategoryViewModel[categories.Count<Category>()];
@@ -22,10 +22,10 @@ namespace WeddingJule.Controllers
                 category.expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id);
                 decimal totalCategoryPrice = category.expenses.Sum<Expense>(e=>e.price);
                 string totalCategoryPriceString = string.Format("{0:N}", totalCategoryPrice);
-                categoryViewModels[i] = new CategoryViewModel() { category = category, totalCategoryPriceString = totalCategoryPriceString };
+                categoryViewModels[i] = new CategoryViewModel() { category = category, totalCategoryPrice = totalCategoryPrice, totalCategoryPriceString = totalCategoryPriceString };
             }
 
-            return View(categoryViewModels.AsEnumerable<CategoryViewModel>());
+            return View(categoryViewModels.OrderByDescending(c=>c.totalCategoryPrice).AsEnumerable<CategoryViewModel>());
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace WeddingJule.Controllers
             {
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListCategory");
             }
             else
                 return Create();
@@ -60,7 +60,7 @@ namespace WeddingJule.Controllers
             {
                 return View(category);
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ListCategory");
         }
 
         [HttpPost]
@@ -70,7 +70,7 @@ namespace WeddingJule.Controllers
             {
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ListCategory");
             }
             else
                 return Edit(category.Id);
@@ -94,7 +94,7 @@ namespace WeddingJule.Controllers
                 return View(category);
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListCategory");
         }
 
         [HttpPost]
@@ -112,7 +112,7 @@ namespace WeddingJule.Controllers
 
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ListCategory");
         }
 
         [HttpGet]

@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using WeddingJule.Models;
 using System.Data.Entity;
-using WeddingJule.Filters;
 
 namespace WeddingJule.Controllers
 {
@@ -44,7 +43,7 @@ namespace WeddingJule.Controllers
                 CategoryExpenses = categoryExpenses
             };
 
-            return View("ListExpense",plvm);
+            return View(plvm);
         }
 
         [HttpGet]

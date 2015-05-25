@@ -8,6 +8,7 @@ namespace WeddingJule.Models
     public class CategoryViewModel
     {
         public Category category { get; set; }
+        public decimal totalCategoryPrice { get; set; }
         public string totalCategoryPriceString { get; set; }
     }
 }
