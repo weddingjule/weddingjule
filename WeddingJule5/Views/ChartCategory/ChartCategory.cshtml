@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WeddingJule.Helpers
+
+@model WeddingJule.Models.ChartCategory
+
+@Html.HeaderLinks(WeddingJule.Helpers.HeaderVariant.ChartCategory)
+
+<script>
+    var pirates = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
+</script>
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+
+
+    var charDatas = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
+
+    // Load the Visualization API and the piechart package.
+    google.load('visualization', '1.0', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+
+        var a = [];
+
+        charDatas.forEach(function(item, i, charDatas) {
+            a.push([item['name'],item['price']]);
+        });
+
+        data.addRows(a);
+
+        // Set chart options
+        //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart#Configuration_Options
+        var options = {
+            'title':'Распределение затрат',
+            'width':800,
+            'height':600,
+            'pieResidueSliceLabel':'Другие'};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+
+
+
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+
