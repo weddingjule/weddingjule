@@ -1,0 +1,56 @@
+﻿
+@using WeddingJule.Helpers
+@model WeddingJule.Models.ExpenseViewModel
+
+@{
+    ViewBag.Title = "Список затрат";
+  }
+<div class="center"><h3 class="total">Затраты</h3></div>
+<div>@Html.ActionLink("Добавить затрату", "Create", new { category = Model.category })</div>
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Категория: </label>
+        @Html.DropDownListFor(model => model.category, Model.Categories, new { PageNumber = 1, @onchange = "this.form.submit();" })
+</div>
+</form>
+
+<table >
+    <tr>
+        <th>Трата</th>
+        <th>Цена</th>
+        @if (!Model.CategoryExpenses.HasValue) { @Html.Raw("<th>Категория</th>")}        
+        <th>Дата</th>
+    </tr>
+
+    @foreach (var item in Model.PageExpenses)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name) <div class="right">@Html.ActionLink("Изм", "Edit", new { id = item.ExpenseID }) | @Html.ActionLink("Уд", "Delete", new { id = item.ExpenseID })</div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            @if (!Model.CategoryExpenses.HasValue) {
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.name)
+            </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+        </tr>
+    }
+</table>
+
+<div id="total">
+    <p>
+        Итого затрат на странице: @Model.PageExpenses.Sum(p => p.price).ToString("N")<br>
+        @if(Model.CategoryExpenses.HasValue) {<text>Итого затрат по категории:</text> @Model.CategoryExpenses.Value.ToString("N") @Html.Raw("<br>")        }
+        Все траты: @Model.AllExpenses.Sum(p => p.price).ToString("N")
+    </p>
+</div>
+
+<div class="paging">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("ListExpense", new { PageNumber = x, category = Model.category }))
+</div>

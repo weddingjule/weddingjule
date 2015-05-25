@@ -51,3 +51,8 @@ input.input-validation-error {
     border: 1px solid #006699;
     background-color: silver;
 }
+
+.right {
+    text-align: right;
+    float: right;
+}

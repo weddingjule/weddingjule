@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using WeddingJule.Models;
 using System.Data.Entity;
+using WeddingJule.Filters;
 
 namespace WeddingJule.Controllers
 {
@@ -12,11 +13,12 @@ namespace WeddingJule.Controllers
     {
         ExpenseContext db = new ExpenseContext();
 
-        public ActionResult Index(int PageNumber = 1, int? category = null)
+        //[MyAuthAttribute]
+        public ActionResult ListExpense(int PageNumber = 1, int? category = null)
         {
             IEnumerable<Expense> allExpenses = db.Expenses.Include(p => p.Category);
 
-            int pageSize = 10; // количество объектов на страницу
+            int pageSize = 8; // количество объектов на страницу
             IQueryable<Expense> expenses = allExpenses.AsQueryable<Expense>();
             if (category != null && category != 0)
                 expenses = expenses.Where(p => p.CategoryId == category);
@@ -27,6 +29,9 @@ namespace WeddingJule.Controllers
 
             IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((PageNumber - 1) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo { PageNumber = PageNumber, PageSize = pageSize, TotalItems = expenses.Count() };
+            decimal? categoryExpenses = null;
+            if (category.HasValue && category != 0 )
+                categoryExpenses = expenses.Sum(p => p.price);
 
             ExpenseViewModel plvm = new ExpenseViewModel
             {
@@ -35,26 +40,11 @@ namespace WeddingJule.Controllers
                 category = category,
                 PageInfo = pageInfo,
                 PageExpenses = expensesPerPages,
-                AllExpenses = allExpenses
+                AllExpenses = allExpenses,
+                CategoryExpenses = categoryExpenses
             };
 
-            return View(plvm);
-        }
-
-        public ActionResult ListCategories(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            category.expenses = db.Expenses.Where(m => m.CategoryId == category.Id);
-            return View(category);
+            return View("ListExpense",plvm);
         }
 
         [HttpGet]
@@ -74,7 +64,7 @@ namespace WeddingJule.Controllers
                 expense.CategoryId = cevm.categoryId;
                 db.Expenses.Add(expense);
                 db.SaveChanges();
-                return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+                return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
             }
             else
                 return Create(cevm.expense.CategoryId);
@@ -96,7 +86,7 @@ namespace WeddingJule.Controllers
                 return View(expense);
             }
 
-            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+            return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpPost]
@@ -106,7 +96,7 @@ namespace WeddingJule.Controllers
             {
                 db.Entry(expense).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+                return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
             }
 
             return Edit(expense.ExpenseID);
@@ -128,7 +118,7 @@ namespace WeddingJule.Controllers
             if (expense != null)
                 return View(expense);
 
-            return RedirectToAction("Index", new { page = 1, category = expense.CategoryId });
+            return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpPost]
@@ -138,7 +128,7 @@ namespace WeddingJule.Controllers
             db.Expenses.Attach(expense);
             db.Expenses.Remove(expense);
             db.SaveChanges();
-            return RedirectToAction("Index", new { page = 1, category = categoryId });
+            return RedirectToAction("ListExpense", new { page = 1, category = categoryId });
         }
     }
 }

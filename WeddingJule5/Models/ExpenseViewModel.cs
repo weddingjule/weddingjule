@@ -11,6 +11,7 @@ namespace WeddingJule.Models
         public IEnumerable<Expense> Expenses { get; set; }
         public SelectList Categories { get; set; }
         public int? category { get; set; }
+        public decimal? CategoryExpenses { get; set; }
 
         public IEnumerable<Expense> PageExpenses { get; set; }
         public IEnumerable<Expense> AllExpenses { get; set; }

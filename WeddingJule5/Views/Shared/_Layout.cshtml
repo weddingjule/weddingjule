@@ -4,8 +4,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -13,12 +12,8 @@
 </head>
 
 <body>
-    <nav>
-        @Html.ActionLink("Список затрат", "Index", "Expense") |
-        @Html.ActionLink("Список категорий", "Index", "Category")
-    </nav>
+    <nav>@Html.ActionLink("Список затрат", "ListExpense", "Expense") | @Html.ActionLink("Список категорий", "Index", "Category")</nav>
     @RenderBody()
-
 
     <script type="text/javascript">
         $(function () {
