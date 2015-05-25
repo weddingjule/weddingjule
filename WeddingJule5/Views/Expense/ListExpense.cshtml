@@ -5,6 +5,9 @@
 @{
     ViewBag.Title = "Список затрат";
   }
+
+@Html.HeaderLinks(HeaderVariant.ListExpense)
+
 <div class="center"><h3 class="total">Затраты</h3></div>
 <div>@Html.ActionLink("Добавить затрату", "Create", new { category = Model.category })</div>
 <form method="get">

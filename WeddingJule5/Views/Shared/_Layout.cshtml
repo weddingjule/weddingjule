@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -12,7 +13,6 @@
 </head>
 
 <body>
-    <nav>@Html.ActionLink("Список затрат", "ListExpense", "Expense") | @Html.ActionLink("Список категорий", "ListCategory", "Category")</nav>
     @RenderBody()
 
     <script type="text/javascript">
