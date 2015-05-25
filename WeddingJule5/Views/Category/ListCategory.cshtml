@@ -27,8 +27,10 @@
     @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.category.name)<div class="right">@Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) | @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })</div>
-</td>
+                @Html.ActionLink(item.category.name, "ListExpense", "Expense", new { PageNumber = 1, category = item.category.Id }, null)
+                <div class="right">@Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) | 
+                @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })</div>
+            </td>
             <td>                
                 @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
             </td>
