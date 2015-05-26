@@ -12,6 +12,7 @@ namespace WeddingJule.Models
         public SelectList Categories { get; set; }
         public int? category { get; set; }
         public decimal? CategoryExpenses { get; set; }
+        public string filter { get; set; }
 
         public IEnumerable<Expense> PageExpenses { get; set; }
         public IEnumerable<Expense> AllExpenses { get; set; }

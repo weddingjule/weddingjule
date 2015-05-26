@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+
+<input type="text" name="name" data-autocomplete-source='@Url.Action("AutocompleteSearch", "AutocompleteSearch")' />
+<input type="submit" value="Поиск" />
+
+<script type="text/javascript">
+    $(function () {
+        $("[data-autocomplete-source]").each(function () {
+            var target = $(this);
+            target.autocomplete({ source: target.attr("data-autocomplete-source") });
+        });
+    });
+</script>
+
+

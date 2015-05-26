@@ -13,7 +13,7 @@ namespace WeddingJule.Controllers
         ExpenseContext db = new ExpenseContext();
 
         //[MyAuthAttribute]
-        public ActionResult ListExpense(int PageNumber = 1, int? category = null)
+        public ActionResult ListExpense(int PageNumber = 1, int? category = null, string filter = null)
         {
             IEnumerable<Expense> allExpenses = db.Expenses.Include(p => p.Category);
 
@@ -22,6 +22,9 @@ namespace WeddingJule.Controllers
             if (category != null && category != 0)
                 expenses = expenses.Where(p => p.CategoryId == category);
 
+            if (!string.IsNullOrWhiteSpace(filter))
+                expenses = expenses.Where(p => p.name.Contains(filter));
+
             List<Category> categories = db.Categories.ToList();
             // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Все", Id = 0 });
@@ -29,7 +32,7 @@ namespace WeddingJule.Controllers
             IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((PageNumber - 1) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo { PageNumber = PageNumber, PageSize = pageSize, TotalItems = expenses.Count() };
             decimal? categoryExpenses = null;
-            if (category.HasValue && category != 0 )
+            if (category.HasValue && category != 0 &&  expenses.Count()>0 )
                 categoryExpenses = expenses.Sum(p => p.price);
 
             ExpenseViewModel plvm = new ExpenseViewModel
@@ -40,7 +43,8 @@ namespace WeddingJule.Controllers
                 PageInfo = pageInfo,
                 PageExpenses = expensesPerPages,
                 AllExpenses = allExpenses,
-                CategoryExpenses = categoryExpenses
+                CategoryExpenses = categoryExpenses,
+                filter = filter
             };
 
             return View(plvm);
