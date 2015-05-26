@@ -87,5 +87,5 @@
 </div>
 
 <div class="paging">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("ListExpense", new { PageNumber = x, category = Model.category }))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("ListExpense", new { PageNumber = x, category = Model.category, filter = Model.filter }))
 </div>
