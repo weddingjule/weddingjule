@@ -20,6 +20,13 @@
     </div>
 </form>
 
+<script>
+    window.onload = function () {
+        var text = $('#filter').val();
+        $('#AjaxAutoCompleteText').val(text);
+    }
+</script>
+
 
 <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
 
