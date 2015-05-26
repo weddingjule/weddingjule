@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace WeddingJule.Models
 {
     public class ChartCategory
     {
-        public IEnumerable<CharData> charDatas { get; private set; }
-
-        public ChartCategory(IEnumerable<CharData> charDatas)
-        {
-            this.charDatas = charDatas;
-        }
+        public IEnumerable<CharData> charDatas { get; set; }
+        public SelectList months { get; set; }
+        public int? month { get; set; }
     }
 
     public class CharData

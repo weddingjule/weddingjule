@@ -17,7 +17,7 @@ namespace WeddingJule.Controllers
         ExpenseContext db = new ExpenseContext();
 
         // GET: Chart
-        public ActionResult ChartCategory()
+        public ActionResult ChartCategory(int? month)
         {
             IEnumerable<Category> categories = db.Categories.AsEnumerable<Category>();
             CharData[] charDatas = new CharData[categories.Count()];
@@ -25,12 +25,24 @@ namespace WeddingJule.Controllers
             for (int i = 0; i < charDatas.Length; i++)
             {
                 Category category = categories.ElementAt<Category>(i);
-                IEnumerable<Expense> expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id).AsEnumerable<Expense>();
+                IEnumerable<Expense> expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id && ((month.HasValue && month == e.date.Month) || !month.HasValue)).AsEnumerable<Expense>();
                 CharData CharData = new CharData(){name = category.name, price = expenses.Sum(e=>e.price)};
                 charDatas[i] = CharData;
             }
 
-            ChartCategory chartCategory = new ChartCategory(charDatas.OrderByDescending(c=>c.price).AsEnumerable<CharData>());
+            List<Expense> allExpenses = db.Expenses.ToList<Expense>();
+            IEnumerable<Month> months = from expense in allExpenses
+                                        group expense by new { month = expense.date.Month } into m
+                                        orderby m.Key.month
+                                        select new Month() { month = m.Key.month, monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m.Key.month) };
+
+            List<Month> monthList = months.ToList<Month>();
+            monthList.Insert(0, new Month() { month = null, monthName = "Все месяца" });
+
+
+            ChartCategory chartCategory = new ChartCategory() { charDatas = charDatas.OrderByDescending(c => c.price).AsEnumerable<CharData>() };
+            chartCategory.months = new SelectList(monthList, "month", "monthName");
+            chartCategory.month = month;
 
             return View("ChartCategory", chartCategory);
         }
@@ -73,15 +85,15 @@ namespace WeddingJule.Controllers
 
     public class MonthVM
     {
-        public IEnumerable<Month> months;
-        public IEnumerable<string> categories;
+        public IEnumerable<Month> months { get; set; }
+        public IEnumerable<string> categories { get; set; }
     }
 
     public class Month
     {
-        public int month;
-        public string monthName;
-        public IEnumerable<decimal> prices;
+        public int? month { get; set; }
+        public string monthName { get; set; }
+        public IEnumerable<decimal> prices { get; set; }
     }
 
     public static class JavaScriptConvert

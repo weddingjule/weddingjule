@@ -6,10 +6,10 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
      <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery-ui-1.11.4.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")       
+    @Scripts.Render("~/Scripts/jquery-ui-1.11.4.min.js")    
+    @Scripts.Render("~/Scripts/jquery.validate.min.js")        
+    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
 </head>
 
 <body>
