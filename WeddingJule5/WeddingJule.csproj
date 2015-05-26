@@ -194,6 +194,7 @@
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Expense\ListExpense.cshtml" />
     <Content Include="Views\ChartCategory\ChartCategory.cshtml" />
+    <Content Include="Views\ChartCategory\LineCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
