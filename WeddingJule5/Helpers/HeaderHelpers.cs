@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace WeddingJule.Helpers
 {
-    public enum HeaderVariant { ListExpense, ListCategory, ChartCategory }
+    public enum HeaderVariant { ListExpense, ListCategory, ChartCategory, LineCategory }
 
     public static class HeaderHelpers
     {
@@ -16,10 +16,11 @@ namespace WeddingJule.Helpers
 
         static HeaderHelpers()
         {
-            headerLinkInfos = new HeaderLinkInfo[3];
+            headerLinkInfos = new HeaderLinkInfo[4];
             headerLinkInfos[0] = new HeaderLinkInfo(HeaderVariant.ListExpense, "Expense", new { PageNumber = 1, category = 0 }, "Список затрат", urlHelper);
             headerLinkInfos[1] = new HeaderLinkInfo(HeaderVariant.ListCategory, "Category", null, "Список категорий", urlHelper);
-            headerLinkInfos[2] = new HeaderLinkInfo(HeaderVariant.ChartCategory, "ChartCategory", null, "График распределения категорий", urlHelper);            
+            headerLinkInfos[2] = new HeaderLinkInfo(HeaderVariant.ChartCategory, "ChartCategory", null, "График распределения категорий", urlHelper);
+            headerLinkInfos[3] = new HeaderLinkInfo(HeaderVariant.LineCategory, "ChartCategory", null, "Затраты по месяцам", urlHelper);
         }
 
         public static MvcHtmlString HeaderLinks(this HtmlHelper html, HeaderVariant headerVariant)

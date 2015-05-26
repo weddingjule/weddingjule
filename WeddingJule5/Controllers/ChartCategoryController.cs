@@ -39,50 +39,49 @@ namespace WeddingJule.Controllers
         {
             List<Expense> allExpenses = db.Expenses.ToList<Expense>();
             List<Category> categories = db.Categories.ToList<Category>();
-            
-            foreach(Category category in categories)
+            string[] categoryNames = new string[categories.Count];
+
+            IEnumerable<Month> months = from expense in allExpenses
+                    group expense by new { month = expense.date.Month } into m
+                    orderby m.Key.month
+                    select new Month() { month = m.Key.month, monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m.Key.month) };
+
+            Month[] listMonths = new Month[months.Count()];
+
+            for (int j = 0; j < months.Count(); j++ )
             {
-                IEnumerable<Expense> categoryExpenses = allExpenses.Where(p => p.CategoryId == category.Id);
+                Month month = months.ElementAt(j);
+                decimal[] prices = new decimal[categories.Count];
+                for (int i = 0; i < prices.Length; i++)
+                {
+                    Category category = categories.ElementAt(i);
+                    categoryNames[i] = category.name;
+                    decimal price = allExpenses.Where(e => e.CategoryId == category.Id && e.date.Month == month.month).Sum(e => e.price);
+                    prices[i] = price;
+                }
 
-                IEnumerable<CategoryWeekInfo> categoryWeekInfos = from p in categoryExpenses
-                                                                  group p by new { month = p.date.Month } into m
-                                                                  orderby m.Key.month
-                                                                  select new CategoryWeekInfo(m.Key.month, m.Sum(c => c.price), category.name);
-
-                CategoryWeekInfoViewModel cc = new CategoryWeekInfoViewModel(categoryWeekInfos);
-
-                return View(cc);
+                IEnumerable<decimal> priceEnumerable = prices.AsEnumerable<decimal>();
+                month.prices = priceEnumerable;
+                listMonths[j] = month;
             }
 
+            MonthVM monthVM = new MonthVM() { months = listMonths, categories = categoryNames };
 
-
-            return View();
+            return View(monthVM);
         }
     }
 
-    public class CategoryWeekInfoViewModel
+    public class MonthVM
     {
-        public readonly IEnumerable<CategoryWeekInfo> categoryWeekInfos;
-        public CategoryWeekInfoViewModel(IEnumerable<CategoryWeekInfo> categoryWeekInfos)
-        {
-            this.categoryWeekInfos = categoryWeekInfos;
-        }
+        public IEnumerable<Month> months;
+        public IEnumerable<string> categories;
     }
 
-    public class CategoryWeekInfo
+    public class Month
     {
-        public readonly int month;
-        public readonly string monthName;
-        public readonly decimal price;
-        public readonly string categoryName;
-
-        public CategoryWeekInfo(int month, decimal price, string categoryName)
-        {
-            this.month = month;
-            this.monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
-            this.price = price;
-            this.categoryName = categoryName;
-        }
+        public int month;
+        public string monthName;
+        public IEnumerable<decimal> prices;
     }
 
     public static class JavaScriptConvert
