@@ -20,7 +20,7 @@ namespace WeddingJule.Helpers
             headerLinkInfos[0] = new HeaderLinkInfo(HeaderVariant.ListExpense, "Expense", new { PageNumber = 1, category = 0 }, "Список затрат", urlHelper);
             headerLinkInfos[1] = new HeaderLinkInfo(HeaderVariant.ListCategory, "Category", null, "Список категорий", urlHelper);
             headerLinkInfos[2] = new HeaderLinkInfo(HeaderVariant.ChartCategory, "ChartCategory", null, "График распределения категорий", urlHelper);
-            headerLinkInfos[3] = new HeaderLinkInfo(HeaderVariant.LineCategory, "ChartCategory", null, "Затраты по месяцам", urlHelper);
+            headerLinkInfos[3] = new HeaderLinkInfo(HeaderVariant.LineCategory, "LineCategory", null, "Затраты по месяцам", urlHelper);
         }
 
         public static MvcHtmlString HeaderLinks(this HtmlHelper html, HeaderVariant headerVariant)

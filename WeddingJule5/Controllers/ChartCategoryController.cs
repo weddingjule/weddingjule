@@ -46,54 +46,6 @@ namespace WeddingJule.Controllers
 
             return View("ChartCategory", chartCategory);
         }
-
-        public ActionResult LineCategory()
-        {
-            List<Expense> allExpenses = db.Expenses.ToList<Expense>();
-            List<Category> categories = db.Categories.ToList<Category>();
-            string[] categoryNames = new string[categories.Count];
-
-            IEnumerable<Month> months = from expense in allExpenses
-                    group expense by new { month = expense.date.Month } into m
-                    orderby m.Key.month
-                    select new Month() { month = m.Key.month, monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m.Key.month) };
-
-            Month[] listMonths = new Month[months.Count()];
-
-            for (int j = 0; j < months.Count(); j++ )
-            {
-                Month month = months.ElementAt(j);
-                decimal[] prices = new decimal[categories.Count];
-                for (int i = 0; i < prices.Length; i++)
-                {
-                    Category category = categories.ElementAt(i);
-                    categoryNames[i] = category.name;
-                    decimal price = allExpenses.Where(e => e.CategoryId == category.Id && e.date.Month == month.month).Sum(e => e.price);
-                    prices[i] = price;
-                }
-
-                IEnumerable<decimal> priceEnumerable = prices.AsEnumerable<decimal>();
-                month.prices = priceEnumerable;
-                listMonths[j] = month;
-            }
-
-            MonthVM monthVM = new MonthVM() { months = listMonths, categories = categoryNames };
-
-            return View(monthVM);
-        }
-    }
-
-    public class MonthVM
-    {
-        public IEnumerable<Month> months { get; set; }
-        public IEnumerable<string> categories { get; set; }
-    }
-
-    public class Month
-    {
-        public int? month { get; set; }
-        public string monthName { get; set; }
-        public IEnumerable<decimal> prices { get; set; }
     }
 
     public static class JavaScriptConvert
