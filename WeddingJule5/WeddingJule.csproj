@@ -119,9 +119,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AutocompleteSearchController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
-    <Compile Include="Controllers\ChartCategoryController.cs" />
+    <Compile Include="Controllers\Google Chart\ChartCategoryController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
-    <Compile Include="Controllers\LineCategoryController.cs" />
+    <Compile Include="Controllers\Google Chart\LineCategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -138,12 +138,12 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\CategoryViewModel.cs" />
-    <Compile Include="Models\ChartCategory.cs" />
+    <Compile Include="Models\Google Charts\ChartCategory.cs" />
     <Compile Include="Models\CreateExpenseViewModel.cs" />
     <Compile Include="Models\Expense.cs" />
     <Compile Include="Models\ExpenseContext.cs" />
     <Compile Include="Models\ExpenseViewModel.cs" />
-    <Compile Include="Models\Month.cs" />
+    <Compile Include="Models\Google Charts\Month.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
