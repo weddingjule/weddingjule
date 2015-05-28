@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace WeddingJule.Controllers
 {
+    [Authorize]
     public class ChartCategoryController : Controller
     {
         ExpenseContext db = new ExpenseContext();

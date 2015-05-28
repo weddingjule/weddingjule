@@ -8,11 +8,11 @@ using System.Data.Entity;
 
 namespace WeddingJule.Controllers
 {
+    [Authorize]
     public class ExpenseController : Controller
     {
         ExpenseContext db = new ExpenseContext();
 
-        //[MyAuthAttribute]
         public ActionResult ListExpense(int PageNumber = 1, int? category = null, string filter = null)
         {
             IEnumerable<Expense> allExpenses = db.Expenses.Include(p => p.Category);
@@ -132,6 +132,19 @@ namespace WeddingJule.Controllers
             db.Expenses.Remove(expense);
             db.SaveChanges();
             return RedirectToAction("ListExpense", new { page = 1, category = categoryId });
+        }
+
+        public ActionResult Index()
+        {
+            string result = "Вы не авторизованы";
+            if (User.Identity.IsAuthenticated)
+            {
+                result = "Ваш логин: " + User.Identity.Name;
+            }
+
+            ViewBag.loginfo = result;
+
+            return PartialView();
         }
     }
 }

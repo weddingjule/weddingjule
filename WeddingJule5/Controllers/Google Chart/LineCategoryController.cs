@@ -8,6 +8,7 @@ using WeddingJule.Models;
 
 namespace WeddingJule.Controllers
 {
+    [Authorize]
     public class LineCategoryController : Controller
     {
         ExpenseContext db = new ExpenseContext();

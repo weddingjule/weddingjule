@@ -1,0 +1,45 @@
+﻿@model WeddingJule.Models.Account.RegisterModel
+@{
+    ViewBag.Title = "Регистрация";
+}
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>Создание учетной записи.</h2>
+</hgroup>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+
+    <fieldset>
+        <legend>Форма регистрации</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Email)<br />
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Password)<br />
+                @Html.PasswordFor(m => m.Password)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ConfirmPassword)<br />
+                @Html.PasswordFor(m => m.ConfirmPassword)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.FirstName)<br />
+                @Html.TextBoxFor(m => m.FirstName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.LastName)<br />
+                @Html.TextBoxFor(m => m.LastName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Year)<br />
+                @Html.TextBoxFor(m => m.Year)
+            </li>
+        </ol>
+        <input type="submit" value="Register" />
+    </fieldset>
+}

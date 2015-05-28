@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using WeddingJule.Models.Account;
 
 namespace WeddingJule.Models
 {
@@ -10,5 +11,6 @@ namespace WeddingJule.Models
     {
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
