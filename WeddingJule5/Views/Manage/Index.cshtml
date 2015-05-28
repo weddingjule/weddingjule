@@ -1,0 +1,26 @@
+﻿@model WeddingJule.Controllers.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>FirstName:</dt>
+        <dd>
+            @Model.FirstName
+        </dd>
+        <dt>LastName:</dt>
+        <dd>
+            @Model.LastName
+        </dd>
+        <dt>Year:</dt>
+        <dd>
+            @Model.Year
+        </dd>
+    </dl>
+</div>
