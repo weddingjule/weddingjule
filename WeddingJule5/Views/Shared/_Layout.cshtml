@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
@@ -14,9 +14,38 @@
 </head>
 
 <body>
-    <div>
-        @Html.Partial("_LoginPartial")
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Затраты", "ListExpense", "Expense", null, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Категории", "ListCategory", "Category")</li>
+                    <li>@Html.ActionLink("Пирог", "ChartCategory", "ChartCategory")</li>
+                    <li>@Html.ActionLink("Затраты по месяцам", "LineCategory", "LineCategory")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
     </div>
-    @RenderBody()
+    <div class="row">
+        <div class="col-xs-12">
+            <br />
+            <br />
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+                <footer>
+                    <p>&copy; @DateTime.Now.ToShortDateString()</p>
+                </footer>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,20 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Распределение затрат по категориям";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using WeddingJule.Helpers
 
 @model WeddingJule.Models.ChartCategory
-
-@Html.HeaderLinks(WeddingJule.Helpers.HeaderVariant.ChartCategory)
-
-<form method="get">
-    <div class="form-inline">
-        <label class="control-label">Месяц: </label>
-        @Html.DropDownListFor(model => model.month, Model.months, new { @onchange = "this.form.submit();" })
-    </div>
-</form>
 
 <script>
     var charDatas = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
@@ -23,9 +13,6 @@
 <!--Load the AJAX API-->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-
-
-    var charDatas = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
 
     // Load the Visualization API and the piechart package.
     google.load('visualization', '1.0', {'packages':['corechart']});
@@ -63,7 +50,12 @@
     }
 </script>
 
-
+<form method="get">
+    <div>
+        <label class="control-label">Месяц: </label>
+        @Html.DropDownListFor(model => model.month, Model.months, new { @onchange = "this.form.submit();" })
+    </div>
+</form>
 
 <!--Div that will hold the pie chart-->
 <div id="chart_div" style="width: 600px; height: 400px;"></div>

@@ -1,22 +1,15 @@
 ﻿@model IEnumerable<WeddingJule.Models.CategoryViewModel>
 @using WeddingJule.Helpers
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Список категорий</title>
+    <title>Категории</title>
 </head>
-<body>    
-    @Html.HeaderLinks(HeaderVariant.ListCategory)
-
-    <div class="center">
-        <h2>Список категорий</h2>
-    </div>
-    <p>
+<body>
+    <div>
         @Html.ActionLink("Добавить новую категорию", "Create")
-    </p>
+    </div>
     <table>
         <tr>
             <th class="col-xs-8">
@@ -26,19 +19,22 @@
                 Итого потрачено
             </th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td class="col-xs-8">
-                @Html.ActionLink(item.category.name, "ListExpense", "Expense", new { PageNumber = 1, category = item.category.Id }, null)
-                <div class="right">@Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) | 
-                @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })</div>
-            </td>
-            <td class="col-xs-4">                
-                @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
-            </td>
-        </tr>
-    }    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="col-xs-8">
+                    @Html.ActionLink(item.category.name, "ListExpense", "Expense", new { PageNumber = 1, category = item.category.Id }, null)
+                    <div class="right">
+                        @Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) |
+                        @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })
+                    </div>
+                </td>
+                <td class="col-xs-4">
+                    @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
+                </td>
+            </tr>
+        }
     </table>
 </body>
 </html>

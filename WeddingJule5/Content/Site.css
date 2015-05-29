@@ -32,15 +32,6 @@ td.narrow{
  width: 50px;   
 }
 
-.center
-{
-    text-align: center;
-    background-color: cornflowerblue;
-    color:white;
-    border-width:medium;
-    border-color:black
-}
-
 .field-validation-error {
     color: #6699CC;
     font-weight:bold;

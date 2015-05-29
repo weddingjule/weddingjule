@@ -1,15 +1,13 @@
-﻿
-@using WeddingJule.Helpers
+﻿@using WeddingJule.Helpers
 @model WeddingJule.Models.ExpenseViewModel
-
 @{
     ViewBag.Title = "Список затрат";
-  }
+}
 
-@Html.HeaderLinks(HeaderVariant.ListExpense)
+<div>
+    @Html.ActionLink("Добавить затрату", "Create", new { category = Model.category })
+</div>
 
-<div class="center"><h3 class="total">Затраты</h3></div>
-<div>@Html.ActionLink("Добавить затрату", "Create", new { category = Model.category })</div>
 <form method="get">
     <div class="form-inline">
         <label class="control-label">Категория: </label>
@@ -26,7 +24,6 @@
         $('#AjaxAutoCompleteText').val(text);
     }
 </script>
-
 
 <link href='@Url.Content("~/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
 
@@ -53,10 +50,10 @@
 
         @if (!Model.CategoryExpenses.HasValue)
         { @Html.Raw("<th class=\"col-xs-2\">Категория</th>")}
-                                         
+
         <th class="col-xs-2">Дата</th>
     </tr>
-    
+
     @foreach (var item in Model.PageExpenses)
     {
         <tr>
@@ -68,9 +65,9 @@
             </td>
             @if (!Model.CategoryExpenses.HasValue)
             {
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.name)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.name)
+                </td>
             }
             <td>
                 @Html.DisplayFor(modelItem => item.date)
