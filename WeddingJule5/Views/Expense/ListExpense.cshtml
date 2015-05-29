@@ -43,17 +43,14 @@
     });
 </script>
 
-<table>
+<table class="table-striped spec">
     <tr>
         <th class="col-xs-6">Трата</th>
         <th class="col-xs-2">Цена</th>
-
         @if (!Model.CategoryExpenses.HasValue)
         { @Html.Raw("<th class=\"col-xs-2\">Категория</th>")}
-
         <th class="col-xs-2">Дата</th>
     </tr>
-
     @foreach (var item in Model.PageExpenses)
     {
         <tr>
