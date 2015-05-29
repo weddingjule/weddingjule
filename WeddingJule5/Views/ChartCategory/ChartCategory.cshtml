@@ -17,7 +17,7 @@
 </form>
 
 <script>
-    var pirates = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
+    var charDatas = @WeddingJule.Controllers.JavaScriptConvert.SerializeObject(Model.charDatas);
 </script>
 
 <!--Load the AJAX API-->
@@ -55,8 +55,6 @@
         //https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart#Configuration_Options
         var options = {
             'title':'Распределение затрат',
-            'width':800,
-            'height':600,
             'pieResidueSliceLabel':'Другие'};
 
         // Instantiate and draw our chart, passing in some options.
@@ -68,5 +66,5 @@
 
 
 <!--Div that will hold the pie chart-->
-<div id="chart_div"></div>
+<div id="chart_div" style="width: 600px; height: 400px;"></div>
 

@@ -17,24 +17,24 @@
     <p>
         @Html.ActionLink("Добавить новую категорию", "Create")
     </p>
-    <table class="table">
+    <table>
         <tr>
-            <th>
+            <th class="col-xs-8">
                 Категория
             </th>
-            <th>
+            <th class="col-xs-4">
                 Итого потрачено
             </th>
         </tr>
     
     @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="col-xs-8">
                 @Html.ActionLink(item.category.name, "ListExpense", "Expense", new { PageNumber = 1, category = item.category.Id }, null)
                 <div class="right">@Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) | 
                 @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })</div>
             </td>
-            <td>                
+            <td class="col-xs-4">                
                 @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
             </td>
         </tr>
