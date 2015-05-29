@@ -12,7 +12,7 @@ namespace WeddingJule.Models
 
         [Required(ErrorMessage = "Наименование траты не может быть пустым")]
         [DataType(DataType.Text)]
-        [Display(Name = "Наименование траты")]
+        [Display(Name = "Наименование")]
         public string name { get; set; }
 
         [Required(ErrorMessage = "Стоимость должна быть задана")]
@@ -25,9 +25,10 @@ namespace WeddingJule.Models
         [Required(ErrorMessage = "Дата должна быть задана")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Дата транзакции")]
+        [Display(Name = "Дата")]
         public DateTime date { get; set; }
 
+        [Display(Name = "Категория")]
         public int? CategoryId { get; set; }
         public Category Category { get; set; }
     }

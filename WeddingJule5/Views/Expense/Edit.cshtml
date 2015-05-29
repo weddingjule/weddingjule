@@ -1,51 +1,59 @@
 ﻿@model WeddingJule.Models.Expense
-
 @{
     ViewBag.Title = "Редактирование траты";
 }
 
 <h2>Редактирование траты</h2>
-
-<form method="post">
-    <fieldset>
-        <legend>Затрата</legend>
-        @Html.HiddenFor(model=>model.ExpenseID)
-        <p>
-            Введите наименование траты: <br />
-            @Html.EditorFor(model => model.name)
-            @Html.ValidationMessageFor(model=>model.name)
-        </p>
-        <p>            
-            @Html.LabelFor(model => model.price, "Введите стоимость:")<br/>
-            @Html.EditorFor(model => model.price)
-            @Html.ValidationMessageFor(model=>model.price)
-        </p>
-        <p>
-            Введите дату: <br />
-            @Html.EditorFor(model => model.date)
-            @Html.ValidationMessageFor(model=>model.date)
-        </p>
-        <p>
-            Выберите категорию траты: <br />
-            @Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList)
-        </p>
-        <input type="submit" value="Сохранить изменения" />
-    </fieldset>
-</form>
+@using (Html.BeginForm("Edit", "Expense", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.HiddenFor(model => model.ExpenseID)
+    <div class="form-group">
+        @Html.LabelFor(m => m.name, new { @class = "col-xs-2 control-label" })
+        <div class="col-xs-10">
+            @Html.EditorFor(model => model.name, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.name)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.price, new { @class = "col-xs-2 control-label" })
+        <div class="col-xs-10">
+            @Html.EditorFor(model => model.price, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.price)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.date, new { @class = "col-xs-2 control-label" })
+        <div class="col-xs-10">
+            @Html.EditorFor(model => model.date, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.date)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CategoryId, new { @class = "col-xs-2 control-label" })
+        <div class="col-xs-3">
+            @Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-xs-10">
+            <input type="submit" class="btn btn-default" value="Сохранить изменения" />
+        </div>
+    </div>
+}
 
 <script type="text/javascript">
-        $(function () {
-            $("input[type='date']")
-                        .datepicker({ dateFormat: 'dd.mm.yy' })
-                        .get(0).setAttribute("type", "text");
-        });
+    $(function () {
+        $("input[type='date']")
+                    .datepicker({ dateFormat: 'dd.mm.yy' })
+                    .get(0).setAttribute("type", "text");
+    });
 
-        $.validator.methods.date = function (value, element) {
-            return this.optional(element) || Globalize.parseDate(value, 'dd.mm.yy', "ru");
-        }
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || Globalize.parseDate(value, 'dd.mm.yy', "ru");
+    }
 
 
-        $.validator.methods.number = function (value, element) {
-            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
-        };
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    };
 </script>
