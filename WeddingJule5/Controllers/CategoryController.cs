@@ -77,6 +77,24 @@ namespace WeddingJule.Controllers
                 return Edit(category.Id);
         }
 
+        public ActionResult Details(int id)
+        {
+            Category category = db.Categories.Find(id);
+
+
+            if (category != null)
+            {
+                IEnumerable<Expense> expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id);
+                CategoryDetailsViewModel cdvm = new CategoryDetailsViewModel() 
+                {
+                    name=category.name,
+                    count = expenses.Count(),
+                    price = expenses.Sum(e=>e.price)
+                };
+                return PartialView(cdvm);
+            }
+            return HttpNotFound();
+        }
 
         [HttpGet]
         public ActionResult Delete(int? id)
@@ -123,5 +141,12 @@ namespace WeddingJule.Controllers
             var result = !isCategoryNameExists;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+    }
+
+    public class CategoryDetailsViewModel
+    {
+        public string name { get; set; }
+        public int count { get; set; }
+        public decimal price { get; set; }
     }
 }

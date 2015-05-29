@@ -10,6 +10,11 @@
     <div>
         @Html.ActionLink("Добавить новую категорию", "Create")
     </div>
+
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+
     <table class="table-striped">
         <tr>
             <th class="col-xs-8">
@@ -22,9 +27,10 @@
 
         @foreach (var item in Model)
         {
+
             <tr>
                 <td class="col-xs-8">
-                    @Html.ActionLink(item.category.name, "ListExpense", "Expense", new { PageNumber = 1, category = item.category.Id }, null)
+                    @Html.ActionLink(item.category.name, "Details", "Category", new { id = item.category.Id }, new { @class = "detailsCategory" })
                     <div class="right">
                         @Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) |
                         @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })
@@ -36,5 +42,20 @@
             </tr>
         }
     </table>
+
+    <script type="text/javascript">
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".detailsCategory").click(function (e) {
+
+            e.preventDefault();
+            $.get(this.href, function (data) {
+                $('#dialogContent').html(data);
+                $('#modDialog').modal('show');
+            });
+        });
+    })
+    </script>
+
 </body>
 </html>
