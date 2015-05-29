@@ -134,6 +134,19 @@ namespace WeddingJule.Controllers
             return RedirectToAction("ListExpense", new { page = 1, category = categoryId });
         }
 
+        public ActionResult ExpenseDetails(int id)
+        {
+            Expense expense = db.Expenses.Find(id);
+            if (expense != null)
+            {
+                Category category = db.Categories.Find(expense.CategoryId);
+                expense.Category = category;
+
+                return PartialView("ExpenseDetails", expense);
+            }
+            return HttpNotFound();
+        }
+
         public ActionResult Index()
         {
             string result = "Вы не авторизованы";

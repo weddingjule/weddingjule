@@ -1,0 +1,23 @@
+﻿@model WeddingJule.Models.Expense
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Трата</h4>
+    </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>Наименование</dt>
+            <dd>@Html.DisplayFor(m => m.name)</dd>
+
+            <dt>Стоимость</dt>
+            <dd>@Html.DisplayFor(m => m.price)</dd>
+
+            <dt>Дата</dt>
+            <dd>@Html.DisplayFor(m => m.date)</dd>
+
+            <dt>Категория</dt>
+            <dd>@Html.DisplayFor(m => m.Category.name)</dd>
+        </dl>
+    </div>
+</div>
