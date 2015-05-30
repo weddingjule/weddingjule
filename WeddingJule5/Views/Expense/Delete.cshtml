@@ -1,63 +1,26 @@
 ﻿@model WeddingJule.Models.Expense
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ExpenseID)
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>Трата</dt>
+                <dd>@Html.DisplayFor(m => m.name)</dd>
 
-@{
-    ViewBag.Title = "Удаление траты";
-}
+                <dt>@Html.LabelFor(m => m.price)</dt>
+                <dd>@Html.DisplayFor(m => m.price)</dd>
 
-<h2>Удаление траты</h2>
+                <dt>@Html.LabelFor(m => m.date)</dt>
+                <dd>@Html.DisplayFor(m => m.date)</dd>
 
-@using (Html.BeginForm("Delete", "Expense", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.HiddenFor(model => model.ExpenseID)
-    <div class="form-group">
-        @Html.LabelFor(m => m.name, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.name)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.price, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.price, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.price)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.date, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">                        
-            @Html.EditorFor(model => model.date, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.date)
-        </div>
-    </div>
-    <div class="form-group">                
-        @Html.HiddenFor(model=>model.Category)
-        @Html.HiddenFor(model => model.CategoryId)    
-        @Html.LabelFor(m => m.CategoryId, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">           
-             @Html.EditorFor(model => model.Category.name, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-xs-10">
-            <input type="submit" class="btn btn-default" value="Удалить" />
-        </div>
-    </div>
-}
+                <dt>Категория</dt>
+                @Html.HiddenFor(m=>m.CategoryId)
+                <dd>@Html.DisplayFor(model => model.Category.name)</dd>
 
-<script type="text/javascript">
-    $(function () {
-        $("input[type='date']")
-                    .datepicker({ dateFormat: 'dd.mm.yy' })
-                    .get(0).setAttribute("type", "text");
-    });
-
-    $.validator.methods.date = function (value, element) {
-        return this.optional(element) || Globalize.parseDate(value, 'dd.mm.yy', "ru");
+                <dd><input type="submit" value="Удалить" /></dd>
+            </dl>
+        </div>
     }
-
-
-    $.validator.methods.number = function (value, element) {
-        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
-    };
-</script>
+</div>

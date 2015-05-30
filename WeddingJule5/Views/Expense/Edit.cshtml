@@ -1,45 +1,28 @@
 ﻿@model WeddingJule.Models.Expense
-@{
-    ViewBag.Title = "Редактирование траты";
-}
-
-<h2>Редактирование траты</h2>
-@using (Html.BeginForm("Edit", "Expense", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.ExpenseID)
-    <div class="form-group">
-        @Html.LabelFor(m => m.name, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.name)
-        </div>
+    <div class="modal-body">
+        <dl class="dl-horizontal">
+            <dt>Трата</dt>
+            <dd>@Html.EditorFor(m => m.name)</dd>
+
+            <dt>@Html.LabelFor(m => m.price)</dt>
+            <dd>@Html.EditorFor(m => m.price)</dd>
+
+            <dt>@Html.LabelFor(m => m.date)</dt>
+            <dd>@Html.EditorFor(m => m.date)</dd>
+
+            <dt>Категория</dt>
+            <dd>@Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList)</dd>
+
+            <dd><input type="submit" value="Сохранить" /></dd>
+        </dl>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.price, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.price, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.price)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.date, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.date, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.date)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.CategoryId, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-3">
-            @Html.DropDownListFor(model => model.CategoryId, ViewBag.categories as SelectList, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-xs-10">
-            <input type="submit" class="btn btn-default" value="Сохранить изменения" />
-        </div>
-    </div>
-}
+    }
+</div>
 
 <script type="text/javascript">
     $(function () {

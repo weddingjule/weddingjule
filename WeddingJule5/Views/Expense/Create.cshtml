@@ -4,41 +4,30 @@
 
 @model WeddingJule.Models.CreateExpenseViewModel
 
-<h2>Добавление новой затраты</h2>
-
 @using (Html.BeginForm("Create", "Expense", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.expense.name, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.expense.name, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.expense.name)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.expense.price, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.expense.price, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.expense.price)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.expense.date, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-10">
-            @Html.EditorFor(model => model.expense.date, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.expense.date)
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.expense.CategoryId, new { @class = "col-xs-2 control-label" })
-        <div class="col-xs-3">
-            @Html.DropDownListFor(model => model.categoryId, Model.Categories as SelectList)
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-xs-10">
-            <input type="submit" class="btn btn-default" value="Добавить" />
-        </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="modal-body">
+                <dl class="dl-horizontal">
+                    <dt>Трата</dt>
+                    <dd>@Html.EditorFor(m => m.expense.name)</dd>
+
+                    <dt>@Html.LabelFor(m => m.expense.price)</dt>
+                    <dd>@Html.EditorFor(m => m.expense.price)</dd>
+
+                    <dt>@Html.LabelFor(m => m.expense.date)</dt>
+                    <dd>@Html.EditorFor(m => m.expense.date)</dd>
+
+                    <dt>Категория</dt>
+                    <dd>@Html.DropDownListFor(model => model.categoryId, Model.Categories as SelectList)</dd>
+
+                    <dd><input type="submit" value="Сохранить" /></dd>
+                </dl>
+            </div>
+        }
     </div>
 }
 

@@ -55,7 +55,7 @@ namespace WeddingJule.Controllers
         {
             SelectList categories = new SelectList(db.Categories, "Id", "name");
             CreateExpenseViewModel cevm = new CreateExpenseViewModel() { Categories = categories, categoryId = category };
-            return View(cevm);
+            return PartialView(cevm);
         }
 
         [HttpPost]
@@ -86,7 +86,7 @@ namespace WeddingJule.Controllers
             {
                 SelectList categories = new SelectList(db.Categories, "Id", "name");
                 ViewBag.Categories = categories;
-                return View(expense);
+                return PartialView(expense);
             }
 
             return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
@@ -119,7 +119,7 @@ namespace WeddingJule.Controllers
             expense.Category = category;
 
             if (expense != null)
-                return View(expense);
+                return PartialView(expense);
 
             return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
         }
