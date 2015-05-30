@@ -88,27 +88,32 @@ namespace WeddingJule.Controllers
             Expense expense = db.Expenses.Find(id);
             if (expense != null)
             {
+                CreateExpenseViewModel cevm = new CreateExpenseViewModel();
+                cevm.expense = expense;
+                cevm.categoryId = expense.CategoryId;
                 SelectList categories = new SelectList(db.Categories, "Id", "name");
-                ViewBag.Categories = categories;
-                return PartialView(expense);
+                cevm.Categories = categories;
+                return PartialView(cevm);
             }
 
             return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
         }
 
         [HttpPost]
-        public ActionResult Edit(Expense expense)
+        public ActionResult Edit(CreateExpenseViewModel cevm)
         {
             if (ModelState.IsValid)
             {
+                Expense expense = cevm.expense;
+                expense.CategoryId = cevm.categoryId;
                 db.Entry(expense).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
+                return PartialView("Success");
             }
 
             SelectList categories = new SelectList(db.Categories, "Id", "name");
-            ViewBag.Categories = categories;
-            return PartialView(expense);
+            cevm.Categories = categories;
+            return PartialView(cevm);
         }
 
 
