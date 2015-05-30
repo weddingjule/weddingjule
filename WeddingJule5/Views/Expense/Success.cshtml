@@ -1,0 +1,9 @@
+﻿<h2>Трата учтена</h2>
+<script>
+        $(document).ready(function () {
+            $('#okbtnid').hide();
+            setTimeout(function() {
+                window.location.href = "@Url.Action("ListExpense", "Expense")";
+            }, 2000);
+        })
+</script>

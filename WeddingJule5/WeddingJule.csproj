@@ -259,6 +259,7 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Expense\ExpenseDetails.cshtml" />
     <Content Include="Views\Expense\Edit.cshtml" />
+    <Content Include="Views\Expense\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">

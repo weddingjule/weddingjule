@@ -67,10 +67,14 @@ namespace WeddingJule.Controllers
                 expense.CategoryId = cevm.categoryId;
                 db.Expenses.Add(expense);
                 db.SaveChanges();
-                return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
-            }
+                return PartialView("Success");
+             }
             else
-                return Create(cevm.expense.CategoryId);
+            {
+                SelectList categories = new SelectList(db.Categories, "Id", "name");
+                cevm.Categories = categories;
+                return PartialView(cevm);
+            }
         }
 
         [HttpGet]
@@ -102,7 +106,9 @@ namespace WeddingJule.Controllers
                 return RedirectToAction("ListExpense", new { page = 1, category = expense.CategoryId });
             }
 
-            return Edit(expense.ExpenseID);
+            SelectList categories = new SelectList(db.Categories, "Id", "name");
+            ViewBag.Categories = categories;
+            return PartialView(expense);
         }
 
 

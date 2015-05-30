@@ -5,7 +5,7 @@
 }
 
 <div>
-    @Html.ActionLink("Добавить затрату", "Create", new { category = Model.category }, new { @class = "viewDialog", data_dialog_title = "Добавить трату" })
+    @Html.ActionLink("Добавить затрату", "Create", "Expense", new { category = Model.category }, new { @class = "validateDialog", data_dialog_title = "Добавить трату" })
 </div>
 
 <form method="get">
@@ -43,8 +43,8 @@
     });
 </script>
 
-<div id="modDialog" class="modal fade">
-    <div id="dialogContent" class="modal-dialog"></div>
+<div id="modDialogDetail" class="modal fade">
+    <div id="dialogDetailContent" class="modal-dialog"></div>
 </div>
 
 
@@ -59,7 +59,7 @@
             <td class="col-xs-8">
                 @Html.ActionLink(item.name, "ExpenseDetails", "Expense", new { id = item.ExpenseID }, new { @class = "expenseDetails" })
                 <div class="right">
-                    @Html.ActionLink("Изм", "Edit", new { id = item.ExpenseID }, new { @class = "viewDialog", data_dialog_title = "Изменить трату" }) |
+                    @Html.ActionLink("Изм", "Edit", new { id = item.ExpenseID }, new { @class = "editValidateDialog", data_dialog_title = "Изменить трату" }) |
                     @Html.ActionLink("Уд", "Delete", new { id = item.ExpenseID }, new { @class = "viewDialog", data_dialog_title = "Удалить трату" })
                 </div>
             </td>
@@ -78,6 +78,22 @@
 
             e.preventDefault();
             $.get(this.href, function (data) {
+                $('#dialogDetailContent').html(data);
+                $('#modDialogDetail').modal('show');
+            });
+        });
+    })
+</script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $.ajaxSetup({ cache: false });
+        $(".compItem").click(function (e) {
+
+            e.preventDefault();
+            $.get(this.href, function (data) {
                 $('#dialogContent').html(data);
                 $('#modDialog').modal('show');
             });
@@ -93,17 +109,59 @@
         $(".viewDialog").on("click", function (e) {
             e.preventDefault();
 
-            $("<div></div>")
+            $("<div id='dialogContent'></div>")
                 .addClass("dialog")
                 .appendTo("body")
+                .load(this.href)
                 .dialog({
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
                     minWidth: 600,
                     modal: true
-                })
-                .load(this.href);
+                });
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $(".editValidateDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    width: 600,
+                    modal: true,
+                    buttons: {
+                        "Сохранить": {
+                            text: "Сохранить",
+                            id: "okbtnid",
+                            click: function () {
+                                $.ajax({
+                                    url: "@Url.Action("Edit", "Expense")",
+                                    type: "POST",
+                                    data: $('form').serialize(),
+                                    datatype: "json",
+                                    success: function (result) {
+
+                                        $("#dialogContent").html(result);
+                                    }
+                                });
+                            }
+                        }
+
+                    }
+                });
+        });
+
         $(".close").on("click", function (e) {
             e.preventDefault();
             $(this).closest(".dialog").dialog("close");
@@ -111,8 +169,51 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
 
+        $.ajaxSetup({ cache: false });
 
+        $(".validateDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    width: 600,
+                    modal: true,
+                    buttons: {    
+                        "Сохранить": {
+                            text: "Сохранить",
+                            id: "okbtnid",
+                            click: function () {
+                                $.ajax({
+                                    url: "@Url.Action("Create", "Expense")",
+                                    type: "POST",
+                                    data: $('form').serialize(),
+                                    datatype: "json",
+                                    success: function (result) {
+
+                                        $("#dialogContent").html(result);
+                                    }
+                                });
+                            }
+                        }
+    
+                    }
+                });
+        });
+
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
+</script>
 
 <div id="total">
     <p>

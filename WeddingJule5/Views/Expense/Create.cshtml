@@ -10,22 +10,33 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-            <div class="modal-body">
-                <dl class="dl-horizontal">
-                    <dt>Трата</dt>
-                    <dd>@Html.EditorFor(m => m.expense.name)</dd>
-
-                    <dt>@Html.LabelFor(m => m.expense.price)</dt>
-                    <dd>@Html.EditorFor(m => m.expense.price)</dd>
-
-                    <dt>@Html.LabelFor(m => m.expense.date)</dt>
-                    <dd>@Html.EditorFor(m => m.expense.date)</dd>
-
-                    <dt>Категория</dt>
-                    <dd>@Html.DropDownListFor(model => model.categoryId, Model.Categories as SelectList)</dd>
-
-                    <dd><input type="submit" value="Сохранить" /></dd>
-                </dl>
+            @Html.ValidationSummary(true)
+            <div>
+                @Html.LabelFor(model => model.expense.name)
+                <div>
+                    @Html.EditorFor(model => model.expense.name)
+                    @Html.ValidationMessageFor(model => model.expense.name, "")
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.expense.price)
+                <div>
+                    @Html.EditorFor(model => model.expense.price)
+                    @Html.ValidationMessageFor(model => model.expense.price, "")
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.expense.date)
+                <div>
+                    @Html.EditorFor(model => model.expense.date)
+                    @Html.ValidationMessageFor(model => model.expense.date, "")
+                </div>
+            </div>            
+            <div>
+                @Html.LabelFor(model => model.categoryId)
+                <div>
+                    @Html.DropDownListFor(model => model.categoryId, Model.Categories as SelectList)
+                </div>
             </div>
         }
     </div>
