@@ -12,7 +12,7 @@
     <div class="form-inline">
         <label class="control-label">Категория: </label>
         @Html.DropDownListFor(model => model.category, Model.Categories, new { PageNumber = 1, @onchange = "this.form.submit();" })
-        <input id="AjaxAutoCompleteText" style="margin-left:15px; height:25px;" type="text" name="name" data-autocomplete-source='@Url.Action("AutocompleteSearch", "AutocompleteSearch")' />
+        <input id="AjaxAutoCompleteText" style="height:25px;" type="text" name="name" data-autocomplete-source='@Url.Action("AutocompleteSearch", "AutocompleteSearch")' />
         @Html.HiddenFor(model => model.filter)
         <input type="submit" id="AjaxAutoComplete" value="Поиск" />
     </div>

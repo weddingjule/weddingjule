@@ -19,7 +19,7 @@ namespace WeddingJule.Controllers
                 return LineCategoryValue(categoryId.Value);
 
             List<Expense> allExpenses = db.Expenses.ToList<Expense>();
-            List<Category> categories = db.Categories.ToList<Category>();
+            List<Category> categories = getCategories();
             string[] categoryNames = new string[categories.Count];
 
             IEnumerable<Month> months = from expense in allExpenses
@@ -36,8 +36,10 @@ namespace WeddingJule.Controllers
                 for (int i = 0; i < prices.Length; i++)
                 {
                     Category category = categories.ElementAt(i);
+
                     categoryNames[i] = category.name;
-                    decimal price = allExpenses.Where(e => e.CategoryId == category.Id && e.date.Month == month.month).Sum(e => e.price);
+                    IEnumerable<Expense> monthExpenses = category.expenses.Where(e => e.CategoryId == category.Id && e.date.Month == month.month);
+                    decimal price = monthExpenses.Sum(e => e.price);
                     prices[i] = price;
                 }
 
@@ -45,8 +47,7 @@ namespace WeddingJule.Controllers
                 month.prices = priceEnumerable;
                 listMonths[j] = month;
             }
-
-
+            
             // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Суммарные траты", Id = -1 });
             categories.Insert(0, new Category { name = "Все категории", Id = 0 });
@@ -60,6 +61,21 @@ namespace WeddingJule.Controllers
             };
 
             return View("LineCategory", monthVM);
+        }
+
+        private List<Category> getCategories()
+        {
+            List<Category> categories = db.Categories.ToList<Category>();
+
+            for (int i = 0; i < categories.Count; i++)
+            {
+                Category category = categories[i];
+                category.expenses = db.Expenses.Where<Expense>(e => e.CategoryId == category.Id);
+            }
+
+            categories = categories.OrderByDescending(c => c.expenses.Sum(e => e.price)).ToList<Category>();
+
+            return categories;
         }
 
         public ActionResult LineCategoryValue(int categoryId)
@@ -89,7 +105,9 @@ namespace WeddingJule.Controllers
                 listMonths[j] = month;
             }
 
-            List<Category> categories = db.Categories.ToList<Category>();
+            List<Category> categories = getCategories();
+
+            // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Суммарные траты", Id = -1 });
             categories.Insert(0, new Category { name = "Все категории", Id = 0 });
 
@@ -127,7 +145,9 @@ namespace WeddingJule.Controllers
                 listMonths[j] = month;
             }
 
-            List<Category> categories = db.Categories.ToList<Category>();
+            List<Category> categories = getCategories();
+
+            // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Суммарные траты", Id = -1 });
             categories.Insert(0, new Category { name = "Все категории", Id = 0 });
 
