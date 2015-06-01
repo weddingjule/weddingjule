@@ -7,6 +7,7 @@ namespace WeddingJule.Migrations
     {
         public override void Up()
         {
+            /*
             CreateTable(
                 "dbo.Categories",
                 c => new
@@ -28,15 +29,18 @@ namespace WeddingJule.Migrations
                 .PrimaryKey(t => t.ExpenseID)
                 .ForeignKey("dbo.Categories", t => t.CategoryId)
                 .Index(t => t.CategoryId);
+            */
             
         }
         
         public override void Down()
         {
+            /*
             DropForeignKey("dbo.Expenses", "CategoryId", "dbo.Categories");
             DropIndex("dbo.Expenses", new[] { "CategoryId" });
             DropTable("dbo.Expenses");
             DropTable("dbo.Categories");
+             * */
         }
     }
 }

@@ -7,15 +7,15 @@ table {
     width: 100%;
 }
 
-table, th, td {
+table.format, th.format, td.format {
     border: 1px solid green;
 }
 
-th {
+th.format {
     height: 50px;
     text-align: center;
-    background-color: green;
     color: black;
+    background-color: green;
 }
 
 td {

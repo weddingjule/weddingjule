@@ -15,12 +15,12 @@
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
 
-    <table class="table-striped">
+    <table class="table-striped format">
         <tr>
-            <th class="col-xs-8">
+            <th class="col-xs-8 format">
                 Категория
             </th>
-            <th class="col-xs-4">
+            <th class="col-xs-4 format">
                 Итого потрачено
             </th>
         </tr>
@@ -29,14 +29,14 @@
         {
 
             <tr>
-                <td class="col-xs-8">
+                <td class="col-xs-8 format">
                     @Html.ActionLink(item.category.name, "Details", "Category", new { id = item.category.Id }, new { @class = "detailsCategory" })
                     <div class="right">
                         @Html.ActionLink("Изм", "Edit", new { id = item.category.Id }) |
                         @Html.ActionLink("Уд", "Delete", new { id = item.category.Id })
                     </div>
                 </td>
-                <td class="col-xs-4">
+                <td class="col-xs-4 format">
                     @Html.DisplayFor(modelItem => item.totalCategoryPriceString)
                 </td>
             </tr>

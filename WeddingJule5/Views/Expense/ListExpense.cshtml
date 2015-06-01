@@ -5,7 +5,7 @@
 }
 
 <div>
-    @Html.ActionLink("Добавить затрату", "Create", "Expense", new { category = Model.category }, new { @class = "validateDialog", data_dialog_title = "Добавить трату" })
+    @Html.ActionLink("Добавить затрату", "Create", "Expense", new { category = Model.category }, new { @class = "validateDialog", data_dialog_title = "Добавить" })
 </div>
 
 <form method="get">
@@ -48,23 +48,27 @@
 </div>
 
 
-<table class="table-striped spec">
+<table class="table-striped spec format">
     <tr>
-        <th class="col-xs-8">Трата</th>
-        <th class="col-xs-4">Цена</th>
+        <th class="col-xs-6 format format">Трата</th>
+        <th class="col-xs-3 format format">Цена</th>
+        <th class="col-xs-3 format format">Дата</th>
     </tr>
     @foreach (var item in Model.PageExpenses)
     {
         <tr>
-            <td class="col-xs-8">
+            <td class="col-xs-6 format">
                 @Html.ActionLink(item.name, "ExpenseDetails", "Expense", new { id = item.ExpenseID }, new { @class = "expenseDetails" })
                 <div class="right">
-                    @Html.ActionLink("Изм", "Edit", new { id = item.ExpenseID }, new { @class = "editValidateDialog", data_dialog_title = "Изменить трату" }) |
-                    @Html.ActionLink("Уд", "Delete", new { id = item.ExpenseID }, new { @class = "viewDialog", data_dialog_title = "Удалить трату" })
+                    @Html.ActionLink("Изм", "Edit", new { id = item.ExpenseID }, new { @class = "editValidateDialog", data_dialog_title = "Изменить" }) |
+                    @Html.ActionLink("Уд", "Delete", new { id = item.ExpenseID }, new { @class = "viewDialog", data_dialog_title = "Удалить" })
                 </div>
             </td>
-            <td class="col-xs-4">
+            <td class="col-xs-3 format">
                 @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td class="col-xs-3 format">
+                @Html.DisplayFor(modelItem => item.date)
             </td>
         </tr>
     }
@@ -116,8 +120,9 @@
                 .dialog({
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
-                    minWidth: 600,
-                    modal: true
+                    resizable: false,
+                    modal: true,
+                    width: 'auto'
                 });
         });
     });
@@ -138,8 +143,9 @@
                 .dialog({
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
-                    width: 600,
+                    resizable: false,
                     modal: true,
+                    width:'auto',
                     buttons: {
                         "Сохранить": {
                             text: "Сохранить",
@@ -150,6 +156,7 @@
                                     type: "POST",
                                     data: $('form').serialize(),
                                     datatype: "json",
+                                    width: 'auto',
                                     success: function (result) {
 
                                         $("#dialogContent").html(result);
@@ -184,8 +191,9 @@
                 .dialog({
                     title: $(this).attr("data-dialog-title"),
                     close: function () { $(this).remove() },
-                    width: 600,
+                    resizable: false,
                     modal: true,
+                    width: 'auto',
                     buttons: {    
                         "Сохранить": {
                             text: "Сохранить",
@@ -196,6 +204,7 @@
                                     type: "POST",
                                     data: $('form').serialize(),
                                     datatype: "json",
+                                    width:'auto',
                                     success: function (result) {
 
                                         $("#dialogContent").html(result);
