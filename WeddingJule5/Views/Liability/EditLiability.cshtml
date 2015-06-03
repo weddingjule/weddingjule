@@ -1,0 +1,27 @@
+﻿
+@model WeddingJule.Models.Liability.Liability
+
+@using (Html.BeginForm("EditLiability", "Liability", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.LiabilityID)
+            <div>
+                @Html.LabelFor(model => model.name)
+                <div>
+                    @Html.EditorFor(model => model.name)
+                    @Html.ValidationMessageFor(model => model.name, "")
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.price)
+                <div>
+                    @Html.EditorFor(model => model.price)
+                    @Html.ValidationMessageFor(model => model.price, "")
+                </div>
+            </div>
+        }
+    </div>
+}

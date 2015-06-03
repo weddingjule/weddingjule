@@ -1,0 +1,9 @@
+﻿<h2>Пассив учтен</h2>
+<script>
+        $(document).ready(function () {
+            $('#okbtnid').hide();
+            setTimeout(function() {
+                window.location.href = "@Url.Action("LiabilityIndex", "Liability")";
+            }, 2000);
+        })
+</script>

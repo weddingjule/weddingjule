@@ -1,0 +1,23 @@
+﻿@model WeddingJule.Models.Liability.Liability
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.LiabilityID)
+        <div>
+            @Html.LabelFor(model => model.name)
+            <div>
+                @Html.DisplayFor(model => model.name)
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.price)
+            <div>
+                @Html.DisplayFor(model => model.price)
+            </div>
+        </div>
+        <div>
+            <input type="submit" value="Удалить" />
+        </div>
+    }
+</div>

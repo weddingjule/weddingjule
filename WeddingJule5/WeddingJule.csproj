@@ -264,6 +264,10 @@
     <Content Include="Views\Expense\Edit.cshtml" />
     <Content Include="Views\Expense\Success.cshtml" />
     <Content Include="Views\Liability\LiabilityIndex.cshtml" />
+    <Content Include="Views\Liability\CreateLiability.cshtml" />
+    <Content Include="Views\Liability\Success.cshtml" />
+    <Content Include="Views\Liability\EditLiability.cshtml" />
+    <Content Include="Views\Liability\DeleteLiability.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">

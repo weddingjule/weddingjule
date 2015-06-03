@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Добавление пассива";
+}
+@model WeddingJule.Models.Liability.Liability
+<h2>Добавление пассива</h2>
+
+
+@using (Html.BeginForm("CreateLiability", "LiabilityController", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div>
+            @Html.LabelFor(model => model.name)
+            <div>
+                @Html.EditorFor(model => model.name)
+                @Html.ValidationMessageFor(model => model.name, "")
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.price)
+            <div>
+                @Html.EditorFor(model => model.price)
+                @Html.ValidationMessageFor(model => model.price, "")
+            </div>
+        </div>
+    </div>
+}

@@ -17,46 +17,94 @@ namespace WeddingJule.Controllers
         // GET: Liability
         public ActionResult LiabilityIndex()
         {
-            decimal totalPrice = db.Liabilities.Sum<Liability>(l=>l.price);
+            decimal totalPrice = db.Liabilities.Sum<Liability>(l => l.price);
             LiabilityViewModel lvm = new LiabilityViewModel() { liabilities = db.Liabilities, totalPrice = totalPrice.ToString("C") };
             return View(lvm);
         }
 
+        [HttpGet]
+        public ActionResult CreateLiability(int? id)
+        {
+            return View("CreateLiability");
+        }
+
         [HttpPost]
-        public void Create(Liability liability)
+        public ActionResult CreateLiability(Liability liability)
         {
             if (ModelState.IsValid)
             {
                 db.Liabilities.Add(liability);
                 db.SaveChanges();
+                return PartialView("Success");
+            }
+            else
+            {
+                int? id = null;
+                return CreateLiability(id);
             }
         }
 
-        [HttpPost]
-        public void Edit(Liability liability)
+
+
+        [HttpGet]
+        public ActionResult EditLiability(int? id)
         {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Liability liability = db.Liabilities.Find(id);
+            if (liability != null)
+            {
+                return PartialView(liability);
+            }
+
+            return RedirectToAction("LiabilityIndex");
+        }
+
+        [HttpPost]
+        public ActionResult EditLiability(Liability liability)
+        {
+
             if (ModelState.IsValid)
             {
-                db.Entry(liability).State = EntityState.Modified;
+                Liability dbLiability = db.Liabilities.Find(liability.LiabilityID);
+                dbLiability.name = liability.name;
+                dbLiability.price = liability.price;
+                db.Entry(dbLiability).State = EntityState.Modified;
                 db.SaveChanges();
+                return PartialView("Success");
             }
+
+            return PartialView(liability);
         }
-        [HttpPost]
-        public void Delete(Liability liability)
+
+        [HttpGet]
+        public ActionResult DeleteLiability(int? id)
         {
-            db.Liabilities.Attach(liability);
-            db.Liabilities.Remove(liability);
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
 
-            db.SaveChanges();
+            Liability liability = db.Liabilities.Find(id);
+
+            if (liability != null)
+                return PartialView(liability);
+
+            return RedirectToAction("LiabilityIndex");
         }
-    }
 
-        public class Book
-{
-    public int Id { get;set;}
-    public string Name { get; set; }
-    public string Author { get; set; }
-    public int Year { get; set; }
-    public int Price { get; set; }
-}
+        [HttpPost]
+        public ActionResult DeleteLiability(Liability liability)
+        {
+
+            Liability dbLiability = db.Liabilities.Find(liability.LiabilityID);
+            db.Liabilities.Remove(dbLiability);
+            db.SaveChanges();
+            return RedirectToAction("LiabilityIndex");
+        }
+
+    }
 }
