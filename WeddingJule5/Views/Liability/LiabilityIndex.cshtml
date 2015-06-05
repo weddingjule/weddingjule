@@ -25,7 +25,8 @@
             <td class="col-xs-9 format">
                                 @Html.DisplayFor(modelItem => item.name)
                                 <div class="right">
-                                    @Html.ActionLink("Изм", "EditLiability", new { id = item.LiabilityID }, new { @class = "editValidateDialog", data_dialog_title = "Изменить" }) |
+                                    @Html.ActionLink("Зат", "TransferLiability", new { id = item.LiabilityID }, new { @class = "transferValidateDialog" , data_dialog_title = "Перевести в трату"})
+                                    @Html.ActionLink("Изм", "EditLiability", new { id = item.LiabilityID }, new { @class = "editValidateDialog", data_dialog_title = "Изменить" })
                                     @Html.ActionLink("Уд", "DeleteLiability", new { id = item.LiabilityID }, new { @class = "viewDialog", data_dialog_title = "Удалить" })
                                 </div>
             </td>
@@ -35,39 +36,6 @@
         </tr>
     }
 </table>
-
-
-
-
-<script type="text/javascript">
-    $(function () {
-        $.ajaxSetup({ cache: false });
-        $(".expenseDetails").click(function (e) {
-
-            e.preventDefault();
-            $.get(this.href, function (data) {
-                $('#dialogDetailContent').html(data);
-                $('#modDialogDetail').modal('show');
-            });
-        });
-    })
-</script>
-
-
-<script type="text/javascript">
-
-    $(function () {
-        $.ajaxSetup({ cache: false });
-        $(".compItem").click(function (e) {
-
-            e.preventDefault();
-            $.get(this.href, function (data) {
-                $('#dialogContent').html(data);
-                $('#modDialog').modal('show');
-            });
-        });
-    })
-</script>
 
 <script>
     $(document).ready(function () {
@@ -96,6 +64,42 @@
     $(document).ready(function () {
 
         $.ajaxSetup({ cache: false });
+
+        $(".transferValidateDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    resizable: false,
+                    modal: true,
+                    width: 'auto',
+                    buttons: {
+                        "Сохранить": {
+                            text: "Сохранить",
+                            id: "okbtnid",
+                            click: function () {
+                                $.ajax({
+                                    url: "@Url.Action("TransferLiability", "Liability")",
+                                    type: "POST",
+                                data: $('form').serialize(),
+                                datatype: "json",
+                                width: 'auto',
+                                success: function (result) {
+
+                                    $("#dialogContent").html(result);
+                                }
+                            });
+        }
+        }
+
+    }
+    });
+    });
 
         $(".editValidateDialog").on("click", function (e) {
             e.preventDefault();
@@ -133,18 +137,7 @@
                 });
         });
 
-        $(".close").on("click", function (e) {
-            e.preventDefault();
-            $(this).closest(".dialog").dialog("close");
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-
-        $.ajaxSetup({ cache: false });
-
+        
         $(".validateDialog").on("click", function (e) {
             e.preventDefault();
 
@@ -166,20 +159,20 @@
                                 $.ajax({
                                     url: "@Url.Action("CreateLiability", "Liability")",
                                     type: "POST",
-                                    data: $('form').serialize(),
-                                    datatype: "json",
-                                    width: 'auto',
-                                    success: function (result) {
+                                data: $('form').serialize(),
+                                datatype: "json",
+                                width: 'auto',
+                                success: function (result) {
 
-                                        $("#dialogContent").html(result);
-                                    }
-                                });
-                            }
-                        }
+                                    $("#dialogContent").html(result);
+                                }
+                            });
+        }
+        }
 
-                    }
-                });
-        });
+    }
+    });
+    });
 
         $(".close").on("click", function (e) {
             e.preventDefault();
@@ -187,11 +180,5 @@
         });
     });
 </script>
-
-
-
-
-
-
 
 <b>Все пассивы: @Model.totalPrice</b>

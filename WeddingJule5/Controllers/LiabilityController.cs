@@ -44,8 +44,6 @@ namespace WeddingJule.Controllers
             }
         }
 
-
-
         [HttpGet]
         public ActionResult EditLiability(int? id)
         {
@@ -66,7 +64,6 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult EditLiability(Liability liability)
         {
-
             if (ModelState.IsValid)
             {
                 Liability dbLiability = db.Liabilities.Find(liability.LiabilityID);
@@ -99,11 +96,56 @@ namespace WeddingJule.Controllers
         [HttpPost]
         public ActionResult DeleteLiability(Liability liability)
         {
-
             Liability dbLiability = db.Liabilities.Find(liability.LiabilityID);
             db.Liabilities.Remove(dbLiability);
             db.SaveChanges();
             return RedirectToAction("LiabilityIndex");
+        }
+
+        [HttpGet]
+        public ActionResult TransferLiability(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+
+            Liability liability = db.Liabilities.Find(id);
+
+
+            if (liability != null)
+            {
+                TransferLiabilityViewModel tlvm = new TransferLiabilityViewModel();
+
+                Expense expense = new Expense();
+                expense.name = liability.name;
+                expense.price = liability.price;
+                expense.Category = db.Categories.First<Category>();
+
+                tlvm.expense = expense;
+                tlvm.Categories = new SelectList(db.Categories, "Id", "name");
+                tlvm.LiabilityID = liability.LiabilityID;
+                tlvm.expense.date = DateTime.Today;
+
+                return PartialView(tlvm);
+            }
+
+            return RedirectToAction("LiabilityIndex");
+        }
+
+        [HttpPost]
+        public ActionResult TransferLiability(TransferLiabilityViewModel tlvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Liability dbLiability = db.Liabilities.Find(tlvm.LiabilityID);
+                db.Liabilities.Remove(dbLiability);
+                db.Expenses.Add(tlvm.expense);
+                db.SaveChanges();
+                return PartialView("Success");
+            }
+
+            return PartialView(tlvm);
         }
 
     }

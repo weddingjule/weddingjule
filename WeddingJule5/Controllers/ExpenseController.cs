@@ -29,7 +29,7 @@ namespace WeddingJule.Controllers
             // устанавливаем начальный элемент, который позволит выбрать всех
             categories.Insert(0, new Category { name = "Все", Id = 0 });
 
-            IEnumerable<Expense> expensesPerPages = expenses.OrderBy(p => p.date).Skip((PageNumber - 1) * pageSize).Take(pageSize);
+            IEnumerable<Expense> expensesPerPages = expenses.OrderByDescending(p => p.date).Skip((PageNumber - 1) * pageSize).Take(pageSize);
             PageInfo pageInfo = new PageInfo { PageNumber = PageNumber, PageSize = pageSize, TotalItems = expenses.Count() };
             decimal? categoryExpenses = null;
             if (category.HasValue && category != 0 &&  expenses.Count()>0 )

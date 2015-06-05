@@ -1,0 +1,57 @@
+﻿<h2>Перевод пассива в затраты</h2>
+
+@model WeddingJule.Models.Liability.TransferLiabilityViewModel
+
+@using (Html.BeginForm("TransferLiability", "Liability", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <dl class="row">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.LiabilityID)
+        <dd>
+            @Html.LabelFor(model => model.expense.name)
+        </dd>
+        <dt>
+            @Html.EditorFor(model => model.expense.name)
+            @Html.ValidationMessageFor(model => model.expense.name, "")
+        </dt>
+        <dd>
+            @Html.LabelFor(model => model.expense.price)
+        </dd>
+        <dt>
+            @Html.EditorFor(model => model.expense.price)
+            @Html.ValidationMessageFor(model => model.expense.price, "")
+        </dt>
+        <dd>
+            @Html.LabelFor(model => model.expense.date)
+        </dd>
+        <dt>
+            @Html.EditorFor(model => model.expense.date)
+            @Html.ValidationMessageFor(model => model.expense.date, "")
+        </dt>
+        <dd>
+            @Html.LabelFor(model => model.expense.CategoryId)
+        </dd>
+        <dt>
+            @Html.DropDownListFor(model => model.expense.CategoryId, Model.Categories as SelectList)
+        </dt>
+    </dl>
+}
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $("input[type='date']")
+                    .datepicker({ dateFormat: 'dd.mm.yy' })
+                    .get(0).setAttribute("type", "text");
+    });
+
+    $.validator.methods.date = function (value, element) {
+        return this.optional(element) || Globalize.parseDate(value, 'dd.mm.yy', "ru");
+    };
+
+
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    };
+</script>

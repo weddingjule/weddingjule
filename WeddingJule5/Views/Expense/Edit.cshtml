@@ -31,7 +31,7 @@
             <div>
                 @Html.LabelFor(model => model.expense.CategoryId)
                 <div>
-                    @Html.DropDownListFor(model => model.categoryId, Model.Categories as SelectList)
+                    @Html.DropDownListFor(model => model.expense.CategoryId, Model.Categories as SelectList)
                 </div>
             </div>
         }
