@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WeddingJule.Models.Liability
+namespace WeddingJule.Models
 {
     public class TransferLiabilityViewModel
     {

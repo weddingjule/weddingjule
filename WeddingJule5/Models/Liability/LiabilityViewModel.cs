@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WeddingJule.Models.Liability
+namespace WeddingJule.Models
 {
     public class LiabilityViewModel
     {

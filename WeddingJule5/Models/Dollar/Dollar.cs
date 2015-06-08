@@ -6,9 +6,9 @@ using System.Web;
 
 namespace WeddingJule.Models
 {
-    public class Liability
+    public class Dollar
     {
-        public int LiabilityID { get; set; }
+        public int DollarID { get; set; }
 
         [Required(ErrorMessage = "Наименование обязательства не может быть пустым")]
         [DataType(DataType.Text)]

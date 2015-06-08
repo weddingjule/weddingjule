@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AutocompleteSearchController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DollarController.cs" />
     <Compile Include="Controllers\Google Chart\ChartCategoryController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\Google Chart\LineCategoryController.cs" />
@@ -153,13 +154,15 @@
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\Account\User.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\Category\Category.cs" />
+    <Compile Include="Models\Category\CategoryViewModel.cs" />
+    <Compile Include="Models\Dollar\Dollar.cs" />
+    <Compile Include="Models\Dollar\DollarViewModel.cs" />
     <Compile Include="Models\Google Charts\ChartCategory.cs" />
-    <Compile Include="Models\CreateExpenseViewModel.cs" />
-    <Compile Include="Models\Expense.cs" />
+    <Compile Include="Models\Expense\CreateExpenseViewModel.cs" />
+    <Compile Include="Models\Expense\Expense.cs" />
     <Compile Include="Models\ExpenseContext.cs" />
-    <Compile Include="Models\ExpenseViewModel.cs" />
+    <Compile Include="Models\Expense\ExpenseViewModel.cs" />
     <Compile Include="Models\Google Charts\Month.cs" />
     <Compile Include="Models\Liability\Liability.cs" />
     <Compile Include="Models\Liability\LiabilityViewModel.cs" />
@@ -270,6 +273,7 @@
     <Content Include="Views\Liability\EditLiability.cshtml" />
     <Content Include="Views\Liability\DeleteLiability.cshtml" />
     <Content Include="Views\Liability\TransferLiability.cshtml" />
+    <Content Include="Views\Dollar\DollarIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">

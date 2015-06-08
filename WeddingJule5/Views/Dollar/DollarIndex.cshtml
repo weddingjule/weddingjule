@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Долларовый бюджет";
+}
+@model WeddingJule.Models.DollarViewModel
+
+<h4>Поступления</h4>
+<table class="table-striped spec format">
+    <tr>
+        <th class="col-xs-9 format">Трата</th>
+        <th class="col-xs-3 format">Цена</th>
+    </tr>
+    @foreach (var item in Model.incomeDollars)
+    {
+        <tr>
+            <td class="col-xs-9 format">
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td class="col-xs-3 format">
+                @String.Format(@Model.ci, "{0:C}", @item.price)
+            </td>
+
+        </tr>
+    }
+</table>
+<b>Всего поступений: @Model.totalIncomePrice</b>
+
+<h4>Расходы</h4>
+<table class="table-striped spec format">
+    <tr>
+        <th class="col-xs-9 format">Трата</th>
+        <th class="col-xs-3 format">Цена</th>
+    </tr>
+    @foreach (var item in Model.outcomeDollars)
+    {
+        <tr>
+            <td class="col-xs-9 format">
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td class="col-xs-3 format">
+                @String.Format(@Model.ci, "{0:C}", @item.price)
+            </td>
+        </tr>
+    }
+</table>
+<b>Всего пассивов: @Model.totalOutcomePrice</b><br />
+<b>Баланс: @Model.totalPrice</b>
