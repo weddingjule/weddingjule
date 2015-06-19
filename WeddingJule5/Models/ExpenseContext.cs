@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using WeddingJule.Models.Account;
 using WeddingJule.Models;
+using WeddingJule.Models.Map;
 
 namespace WeddingJule.Models
 {
@@ -15,5 +16,6 @@ namespace WeddingJule.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Liability> Liabilities { get; set; }
         public DbSet<Dollar> Dollars { get; set; }
+        public DbSet<Place> Places { get; set; }
     }
 }

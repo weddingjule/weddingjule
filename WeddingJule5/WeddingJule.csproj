@@ -141,6 +141,7 @@
     <Compile Include="Controllers\Google Chart\LineCategoryController.cs" />
     <Compile Include="Controllers\LiabilityController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -149,6 +150,10 @@
     <Compile Include="Migrations\201505181300371_InitialCreate.cs" />
     <Compile Include="Migrations\201505181300371_InitialCreate.Designer.cs">
       <DependentUpon>201505181300371_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506190643070_Place.cs" />
+    <Compile Include="Migrations\201506190643070_Place.Designer.cs">
+      <DependentUpon>201506190643070_Place.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
@@ -171,6 +176,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWebSecurityService.cs" />
     <Compile Include="Services\WebSecurityService.cs" />
+    <Compile Include="Models\Map\Place.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ExpenseContext.mdf" />
@@ -274,10 +280,14 @@
     <Content Include="Views\Liability\DeleteLiability.cshtml" />
     <Content Include="Views\Liability\TransferLiability.cshtml" />
     <Content Include="Views\Dollar\DollarIndex.cshtml" />
+    <Content Include="Views\Map\MapIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
       <DependentUpon>201505181300371_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506190643070_Place.resx">
+      <DependentUpon>201506190643070_Place.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
