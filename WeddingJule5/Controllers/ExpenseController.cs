@@ -8,7 +8,6 @@ using System.Data.Entity;
 
 namespace WeddingJule.Controllers
 {
-    [Authorize]
     public class ExpenseController : Controller
     {
         ExpenseContext db = new ExpenseContext();

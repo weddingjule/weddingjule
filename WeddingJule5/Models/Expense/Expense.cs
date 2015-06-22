@@ -16,10 +16,10 @@ namespace WeddingJule.Models
         public string name { get; set; }
 
         [Required(ErrorMessage = "Стоимость должна быть задана")]
-        [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
-        [Range(typeof(decimal), "0,01", "50000,00", ErrorMessage = "Некорректно ввели стоимость")]
-        [RegularExpression(@"\d{1,6},\d{1,2}", ErrorMessage = "Формат $99999,99")]
+        [DisplayFormat(DataFormatString = "{0:0}", ApplyFormatInEditMode = true)]
+        [Range(typeof(decimal), "0", "50000", ErrorMessage = "Некорректно ввели стоимость")]
+        [RegularExpression(@"\d{1,6}", ErrorMessage = "Введите от 1 до 5 цифр")]
         public decimal price { get; set; }
 
         [Required(ErrorMessage = "Дата должна быть задана")]
