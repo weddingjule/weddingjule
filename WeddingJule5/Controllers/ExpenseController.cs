@@ -53,7 +53,10 @@ namespace WeddingJule.Controllers
         public ActionResult Create(int? category)
         {
             SelectList categories = new SelectList(db.Categories, "Id", "name");
-            CreateExpenseViewModel cevm = new CreateExpenseViewModel() { Categories = categories, categoryId = category };
+            CreateExpenseViewModel cevm = new CreateExpenseViewModel() { Categories = categories, categoryId = category};
+            Expense expense = new Expense();
+            expense.date = DateTime.Today;
+            cevm.expense = expense;
             return PartialView(cevm);
         }
 

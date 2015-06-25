@@ -6,6 +6,7 @@ using System.Web;
 using WeddingJule.Models.Account;
 using WeddingJule.Models;
 using WeddingJule.Models.Map;
+using WeddingJule.Models.PictureFolder;
 
 namespace WeddingJule.Models
 {
@@ -17,5 +18,6 @@ namespace WeddingJule.Models
         public DbSet<Liability> Liabilities { get; set; }
         public DbSet<Dollar> Dollars { get; set; }
         public DbSet<Place> Places { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
     }
 }
