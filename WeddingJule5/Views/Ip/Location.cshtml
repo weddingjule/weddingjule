@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+
+<h2>Ваше местоположение</h2>
+<div id="map_canvas" style="width:400px; height:400px"></div>
+<p>Ваше местоположение: @ViewBag.Location</p>
+<p>Ваш адрес: @ViewBag.Ip</p>
+<script type="text/javascript">
+window.onload= function initialize() {
+            var myLatlng = new google.maps.LatLng(@ViewBag.Coords);
+            var myOptions = {
+                zoom: 8,
+                center: myLatlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+            var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            var point = new google.maps.LatLng(@ViewBag.Coords);
+            var marker = new google.maps.Marker({
+                position: point,
+                map: map
+            });
+        }
+</script>
