@@ -8,6 +8,28 @@
     @Html.ActionLink("Добавить затрату", "Create", "Expense", new { category = Model.category }, new { @class = "validateDialog", data_dialog_title = "Добавить" })
 </div>
 
+<div><span id="notification" style="color:red;font-size:15px;"></span></div>
+
+<script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+<!--Ссылка на автоматически сгенерированный скрипт хаба SignalR -->
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    $(function () {
+
+        var notificationhub = $.connection.notificationHub;
+
+        notificationhub.client.displayMessage = function (message) {
+
+            $('#notification').html(message);
+        };
+
+        $.connection.hub.start();
+
+    });
+</script>
+
+
+
 <form method="get">
     <div class="form-inline">
         <label class="control-label">Категория: </label>

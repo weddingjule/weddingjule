@@ -5,9 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using WeddingJule.Models;
 using System.Data.Entity;
+using WeddingJule.Hubs;
 
 namespace WeddingJule.Controllers
 {
+    public enum OperationType { Create, Edit, Delete}
+
     public class ExpenseController : Controller
     {
         ExpenseContext db = new ExpenseContext();
@@ -69,6 +72,7 @@ namespace WeddingJule.Controllers
                 expense.CategoryId = cevm.categoryId;
                 db.Expenses.Add(expense);
                 db.SaveChanges();
+                SendMessage(OperationType.Create, cevm.expense);
                 return PartialView("Success");
              }
             else
@@ -110,6 +114,7 @@ namespace WeddingJule.Controllers
                 expense.CategoryId = cevm.categoryId;
                 db.Entry(expense).State = EntityState.Modified;
                 db.SaveChanges();
+                SendMessage(OperationType.Edit, cevm.expense);
                 return PartialView("Success");
             }
 
@@ -144,6 +149,8 @@ namespace WeddingJule.Controllers
             db.Expenses.Attach(expense);
             db.Expenses.Remove(expense);
             db.SaveChanges();
+            expense.CategoryId = categoryId;
+            SendMessage(OperationType.Delete, expense);
             return RedirectToAction("ListExpense", new { page = 1, category = categoryId });
         }
 
@@ -171,6 +178,35 @@ namespace WeddingJule.Controllers
             ViewBag.loginfo = result;
 
             return PartialView();
+        }
+
+        private string generateMessage(OperationType operationType, Expense expense)
+        {
+            string message = string.Empty;
+
+            if (operationType == OperationType.Create)
+                message = "Добавлена трата ";
+            else if (operationType == OperationType.Edit)
+                message = "Изменена трата ";
+            else if (operationType == OperationType.Delete)
+                message = "Удалена трата ";
+
+            Category category = db.Categories.Find(expense.CategoryId);
+
+            message += expense.name + " на " + expense.price.ToString() + " рублей в категории " + category.name;
+
+            return message;
+        }
+
+        private void SendMessage(OperationType operationType, Expense expense)
+        {
+            // Получаем контекст хаба
+            var context = Microsoft.AspNet.SignalR.GlobalHost.ConnectionManager.GetHubContext<NotificationHub>();
+
+            string message = generateMessage(operationType, expense);
+
+            // отправляем сообщение
+            context.Clients.All.displayMessage(message);
         }
     }
 }

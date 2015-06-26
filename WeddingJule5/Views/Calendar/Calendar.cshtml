@@ -1,0 +1,41 @@
+﻿
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1.1", { packages: ["calendar"] });
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn({ type: 'date', id: 'Date' });
+        dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+
+
+        // Получаем данные
+        $.getJSON('GetData', function (data) {
+            // Проходим по всем данным и устанавливаем для них маркеры
+            $.each(data, function (i, item) {
+                var milli = item.date.replace(/\/Date\((-?\d+)\)\//, '$1');
+                var d = new Date(parseInt(milli));
+
+                var price = item.price;
+
+                dataTable.addRow([d, price]);
+            });
+
+            var chart = new google.visualization.Calendar(document.getElementById('calendar_basic'));
+
+            var options = {
+                title: "Распределение трат по дням",
+                height: 350,
+            };
+
+            chart.draw(dataTable, options);
+        });
+    }
+
+</script>
+
+<div id="calendar_basic" style="width: 1000px; height: 350px;"></div>
+
+
+
