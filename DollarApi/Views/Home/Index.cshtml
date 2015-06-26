@@ -1,0 +1,167 @@
+﻿@Scripts.Render("~/bundles/jquery")
+
+<div id="tableBlock"></div>
+
+<div id="editBlock">
+    <p><b>Редактирование поступления</b></p>
+    <table>
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Название: </label></td><td><input type="text" id="editName" /></td></tr>
+        <tr><td><label>Стоимость: </label></td><td><input type="text" id="editPrice" /></td></tr>
+    </table>
+    <button id="editDollar">Сохранить</button>
+</div>
+
+<div id="createBlock">
+    <p><b>Добавление поступления</b></p>
+    <table>
+        <tr><td><label>Название: </label></td><td><input type="text" id="addName" /></td></tr>
+        <tr><td><label>Стоимость: </label></td><td><input type="text" id="addPrice" /></td></tr>
+    </table>
+    <button id="addDollar">Сохранить</button>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        GetAllDollars();
+
+        $("#editDollar").click(function (event) {
+            event.preventDefault();
+            EditDollar();
+        });
+
+        $("#addDollar").click(function (event) {
+            event.preventDefault();
+            AddDollar();
+        });
+
+    });
+    // Получение всех книг по ajax-запросу
+    function GetAllDollars() {
+
+        $("#createBlock").css('display', 'block');
+        $("#editBlock").css('display', 'none');
+        $.ajax({
+            url: '/api/values',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                WriteResponse(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+    // Добавление новой книги
+    function AddDollar() {
+        // получаем значения для добавляемого поступления
+        var dollar = {
+            Name: $('#addName').val(),
+            Price: $('#addPrice').val()
+        };
+
+        $.ajax({
+            url: '/api/values/',
+            type: 'POST',
+            data: JSON.stringify(dollar),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllDollars();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+    // Удаление книги
+    function DeleteDollar(id) {
+
+        $.ajax({
+            url: '/api/values/' + id,
+            type: 'DELETE',
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllDollars();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+    // редактирование книги
+    function EditDollar() {
+        var id = $('#editId').val()
+        // получаем новые значения для редактируемой книги
+        var dollar = {
+            Id: id,
+            Name: $('#editName').val(),
+            Price: $('#editPrice').val()
+        };
+        $.ajax({
+            url: '/api/values/' + id,
+            type: 'PUT',
+            data: JSON.stringify(dollar),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                GetAllDollars();
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+    // вывод полученных данных на экран
+    function WriteResponse(dollars) {
+        var strResult = "<table><th>ID</th><th>Название</th><th>Стоимость</th>";
+        $.each(dollars, function (index, dollar) {
+            strResult += "<tr><td>" + dollar.id + "</td><td> " + dollar.name + "</td><td>" +
+            dollar.price + "</td><td><a id='editItem' data-item='" + dollar.id + "' onclick='EditItem(this);' >Редактировать</a></td>" +
+            "<td><a id='delItem' data-item='" + dollar.id + "' onclick='DeleteItem(this);' >Удалить</a></td></tr>";
+        });
+
+        strResult += "</table>";
+        $("#tableBlock").html(strResult);
+
+    }
+
+    // обработчик редактирования
+    function EditItem(el) {
+        // получаем id редактируемого объекта
+        var id = $(el).attr('data-item');
+        GetDollar(id);
+    }
+    function DeleteItem(el) {
+        var id = $(el).attr('data-item');
+        DeleteDollar(id);
+    }
+
+    // вывод данных редактируемой книги в поля для редактирования
+    function ShowDollar(dollar) {
+        if (dollar != null) {
+            $("#createBlock").css('display', 'none');
+            $("#editBlock").css('display', 'block');
+            $("#editId").val(dollar.id);
+            $("#editName").val(dollar.name);
+            $("#editPrice").val(dollar.price);
+        }
+        else {
+            alert("Такого поступления не существует");
+        }
+    }
+    // запрос книги на редактирование
+    function GetDollar(id) {
+        $.ajax({
+            url: '/api/values/' + id,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                ShowDollar(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+</script>
