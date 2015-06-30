@@ -10,27 +10,43 @@ namespace WeddingJule.Helpers
 {
     public static class PagingHelpers
     {
+        private static string addPage(int i, int pageNumber, Func<int, string> pageUrl)
+        {
+            TagBuilder tag = new TagBuilder("a");
+            tag.MergeAttribute("href", pageUrl(i));
+            tag.InnerHtml = i.ToString();
+            // если текущая страница, то выделяем ее,
+            // например, добавляя класс
+            if (i == pageNumber)
+            {
+                tag.AddCssClass("selected");
+                tag.AddCssClass("btn-primary");
+            }
+            tag.AddCssClass("btn btn-default");
+
+            return tag.ToString();
+        }
+
         public static MvcHtmlString PageLinks(this HtmlHelper html, PageInfo pageInfo, Func<int, string> pageUrl)
         {
             StringBuilder result = new StringBuilder();
-            if (pageInfo.TotalPages > 1)
+
+            int pageMerge = 3;
+
+            int minPage = Math.Max(pageInfo.PageNumber - pageMerge, 1);
+            int maxPage = Math.Min((pageInfo.PageNumber + pageMerge), pageInfo.TotalPages);
+            int difference = 6 - (maxPage - minPage);
+            if(difference>0)
             {
-                for (int i = 1; i <= pageInfo.TotalPages; i++)
-                {
-                    TagBuilder tag = new TagBuilder("a");
-                    tag.MergeAttribute("href", pageUrl(i));
-                    tag.InnerHtml = i.ToString();
-                    // если текущая страница, то выделяем ее,
-                    // например, добавляя класс
-                    if (i == pageInfo.PageNumber)
-                    {
-                        tag.AddCssClass("selected");
-                        tag.AddCssClass("btn-primary");
-                    }
-                    tag.AddCssClass("btn btn-default");
-                    result.Append(tag.ToString());
-                }
+                if (minPage == 1)
+                    maxPage += Math.Min(difference, pageInfo.TotalPages - maxPage);
+                else if (maxPage == pageInfo.TotalPages)
+                    minPage -= Math.Max(difference, 0);
             }
+
+            for (int i = minPage; i <= maxPage; i++)
+                result.Append(addPage(i, pageInfo.PageNumber, pageUrl));
+
             return MvcHtmlString.Create(result.ToString());
         }
     }
