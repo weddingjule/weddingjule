@@ -24,7 +24,7 @@ namespace WeddingJule.Models
 
         [Required(ErrorMessage = "Дата должна быть задана")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата")]
         public DateTime date { get; set; }
 
