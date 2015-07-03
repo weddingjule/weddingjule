@@ -19,5 +19,7 @@ namespace WeddingJule.Models
         public int? month { get; set; }
         public string monthName { get; set; }
         public IEnumerable<decimal> prices { get; set; }
+
+        public const int Proportion = 100;
     }
 }
