@@ -16,7 +16,12 @@ namespace WeddingJule.Controllers
         // GET: Liability
         public ActionResult LiabilityIndex()
         {
-            decimal totalPrice = db.Liabilities.Sum<Liability>(l => l.price);
+            decimal totalPrice = 0;
+
+            //защита от удаленных пассивов
+            if(db.Liabilities.Count<Liability>()>0)
+                totalPrice = db.Liabilities.Sum<Liability>(l => l.price);
+
             LiabilityViewModel lvm = new LiabilityViewModel() { liabilities = db.Liabilities, totalPrice = totalPrice.ToString("C") };
             return View(lvm);
         }
