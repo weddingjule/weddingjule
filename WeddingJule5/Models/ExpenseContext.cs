@@ -19,5 +19,6 @@ namespace WeddingJule.Models
         public DbSet<Dollar> Dollars { get; set; }
         public DbSet<Place> Places { get; set; }
         public DbSet<Picture> Pictures { get; set; }
+        public DbSet<Target> Targets { get; set; }
     }
 }

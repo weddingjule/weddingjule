@@ -162,6 +162,7 @@
     <Compile Include="Controllers\Google Chart\ChartCategoryController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\Google Chart\LineCategoryController.cs" />
+    <Compile Include="Controllers\TargetController.cs" />
     <Compile Include="Controllers\IpController.cs" />
     <Compile Include="Controllers\LiabilityController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -189,6 +190,14 @@
     <Compile Include="Migrations\201506220829144_Picture2.Designer.cs">
       <DependentUpon>201506220829144_Picture2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508061522497_AddTargetDB.cs" />
+    <Compile Include="Migrations\201508061522497_AddTargetDB.Designer.cs">
+      <DependentUpon>201508061522497_AddTargetDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201508061526230_AddTargetDB1.cs" />
+    <Compile Include="Migrations\201508061526230_AddTargetDB1.Designer.cs">
+      <DependentUpon>201508061526230_AddTargetDB1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
@@ -208,6 +217,7 @@
     <Compile Include="Models\Liability\TransferLiabilityViewModel.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PictureFolder\Picture.cs" />
+    <Compile Include="Models\Target.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWebSecurityService.cs" />
     <Compile Include="Services\WebSecurityService.cs" />
@@ -343,7 +353,6 @@
     <Content Include="Views\AutocompleteSearch\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
@@ -361,6 +370,7 @@
     <Content Include="Views\Picture\Gallery.cshtml" />
     <Content Include="Views\Calendar\Calendar.cshtml" />
     <Content Include="Views\Ip\Location.cshtml" />
+    <Content Include="Views\Target\Target.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
@@ -375,6 +385,12 @@
     <EmbeddedResource Include="Migrations\201506220829144_Picture2.resx">
       <DependentUpon>201506220829144_Picture2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508061522497_AddTargetDB.resx">
+      <DependentUpon>201508061522497_AddTargetDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508061526230_AddTargetDB1.resx">
+      <DependentUpon>201508061526230_AddTargetDB1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -386,7 +402,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\CalendarFolder\" />
-    <Folder Include="Views\DayActivity\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

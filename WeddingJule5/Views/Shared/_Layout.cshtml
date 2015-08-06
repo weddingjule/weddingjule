@@ -28,15 +28,22 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Категории", "ListCategory", "Category")</li>
                     <li>@Html.ActionLink("Пирог", "ChartCategory", "ChartCategory")</li>
-                    <li>@Html.ActionLink("Затраты по месяцам", "LineCategory", "LineCategory")</li>
+                    <li>@Html.ActionLink("Месяца", "LineCategory", "LineCategory")</li>
                     <li>@Html.ActionLink("Пассивы", "LiabilityIndex", "Liability")</li>
                     <li>@Html.ActionLink("Доллары", "DollarIndex", "Dollar")</li>
                     <li>@Html.ActionLink("Места", "MapIndex", "Map")</li>
                     <li>@Html.ActionLink("Фото", "Gallery", "Picture")</li>
                     <li>@Html.ActionLink("Календарь", "Calendar", "Calendar")</li>
-                    <li><a href="/Angular/DayActivity.html">Цели</a></li>
+                    <li>@Html.ActionLink("Цели", "Target", "Target")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                    }
                 </ul>
-                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
