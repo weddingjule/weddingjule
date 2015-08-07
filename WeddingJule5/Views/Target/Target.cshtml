@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in list.items">
+            <tr ng-repeat="item in list.items | orderBy:'date'">
                 <td>{{item.name}}</td>
                 <td>{{item.date | date:'dd-MM'}}</td>
                 <td><input type="checkbox" ng-model="item.done" ng-click="update(item)" /></td>
