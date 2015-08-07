@@ -33,10 +33,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in list.items | orderBy:'date'">
+            <tr ng-repeat="item in list.items | orderBy:'date'" ng-style="item.isToday && {'background-color': 'yellow'}">
                 <td>{{item.name}}</td>
                 <td>{{item.date | date:'dd-MM'}}</td>
-                <td><input type="checkbox" ng-model="item.done" ng-click="update(item)" /></td>
+                <td><input type="checkbox" ng-model="item.done" ng-click="update(item)" ng-style="somestyle" /></td>
                 <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
             </tr>
         </tbody>
@@ -49,6 +49,7 @@
 
     targetApp.controller("targetController", function ($scope, $http) {
 
+        $scope.somestyle = { background: 'yellow', color: 'red' };
 
         $http.get('GetData').success(function (data) {
             var model = {
@@ -56,9 +57,11 @@
             };
             $scope.list = model;
 
+            var today = new Date();
             $.each(data, function (i, item) {
                 var date = item.date;
                 item.date = new Date(parseInt(date.replace('/Date(', '')));
+                item.isToday = (today.toDateString() === item.date.toDateString());
                 $scope.list.items.push(item);
             });
         });
