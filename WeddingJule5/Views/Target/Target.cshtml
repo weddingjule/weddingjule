@@ -8,17 +8,13 @@
 <div class="panel" ng-app="targetApp" ng-controller="targetController">
     <div class="form-inline">
         <div class="form-group">
-            <div class="col-md-8">
+            <div class="col-lg-8">
                 <input class="form-control" ng-model="name" placeholder="Цель" />
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-6">
+            <div class="col-lg-3">
                 <input type="number" class="form-control" ng-model="priority" placeholder="Приоритет" />
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-8">
+            <div class="col-lg-1">
                 <button class="btn btn-default" ng-click="addItem(name, priority)">Добавить</button>
             </div>
         </div>
@@ -26,9 +22,9 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Предмет</th>
-                <th>Цена</th>
-                <th>Куплено</th>
+                <th>Цель</th>
+                <th>Приоритет</th>
+                <th>Сделано</th>
             </tr>
         </thead>
         <tbody>
@@ -36,16 +32,10 @@
                 <td>{{item.name}}</td>
                 <td>{{item.priority}}</td>
                 <td><input type="checkbox" ng-model="item.done" /></td>
+                <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
             </tr>
         </tbody>
     </table>
-    <div class="form-inline">
-        <div class="form-group">
-            <div class="col-md-8">
-                <button class="btn btn-default" ng-click="save()">Сохранить</button>
-            </div>
-        </div>
-    </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 <script>
     var targetApp = angular.module("targetApp", []);
@@ -64,15 +54,28 @@
         });
 
         $scope.addItem = function (text, prior) {
-            $scope.list.items.push({ id:null, name: text, priority: prior, done: false });
+            var target = {
+                id: null,
+                name: text,
+                priority: prior,
+                done: false
+            };
+            $scope.list.items.push(target);
+            $.ajax({
+                url: '/target/add',
+                type: 'POST',
+                data: JSON.stringify(target),
+                contentType: "application/json;charset=utf-8"
+            });
         };
 
-
-        $scope.save = function () {
+        $scope.delete = function (item) {
+            var index = $scope.list.items.indexOf(item);
+            $scope.list.items.splice(index, 1);
             $.ajax({
-                url:'/target/save',
+                url: '/target/delete',
                 type: 'POST',
-                data: JSON.stringify($scope.list.items),
+                data: JSON.stringify(item),
                 contentType: "application/json;charset=utf-8"
             });
         }

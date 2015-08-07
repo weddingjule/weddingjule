@@ -18,21 +18,10 @@ namespace WeddingJule.Controllers.Google_Chart
             return View();
         }
 
-        public ActionResult save(Target[] targets)
+        public ActionResult add(Target target)
         {
-            foreach(Target target in targets)
-            {
-                if(target.id == null)
-                {
-                    db.Targets.Add(target);
-                    db.SaveChanges();
-                }
-                else
-                {
-                    db.Entry(target).State = EntityState.Modified;
-                    db.SaveChanges();
-                }
-            }
+            db.Targets.Add(target);
+            db.SaveChanges();
 
             return View("Target");
         }
@@ -40,6 +29,15 @@ namespace WeddingJule.Controllers.Google_Chart
         public JsonResult GetData()
         {
             return Json(db.Targets, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult delete(Target target)
+        {
+            db.Targets.Attach(target);
+            db.Targets.Remove(target);
+            db.SaveChanges();
+
+            return View("Target");
         }
     }
 }
