@@ -22,7 +22,13 @@ namespace WeddingJule.Controllers.Google_Chart
         {
             db.Targets.Add(target);
             db.SaveChanges();
+            return View("Target");
+        }
 
+        public ActionResult update(Target target)
+        {
+            db.Entry(target).State = EntityState.Modified;
+            db.SaveChanges();
             return View("Target");
         }
 

@@ -229,6 +229,7 @@
     <Content Include="App_Data\ExpenseContext_log.ldf">
       <DependentUpon>ExpenseContext.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\angular-datepicker.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\demo.css" />
@@ -295,6 +296,7 @@
     <Content Include="images\thumbs\7.jpg" />
     <Content Include="images\thumbs\8.jpg" />
     <Content Include="images\views.png" />
+    <Content Include="Scripts\angular-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
