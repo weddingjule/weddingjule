@@ -58,7 +58,9 @@
         var options = {
             title: 'Траты по месяцам',
             curveType: 'function',
-            legend: { position: 'bottom' }
+            legend: { position: 'bottom' },
+            width: $(window).width() * 0.65,
+            height: $(window).height()* 0.65
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -67,4 +69,4 @@
     }
 </script>
 
-<div id="curve_chart" style="width: 600px; height: 400px;"></div>
+<div id="curve_chart"></div>
