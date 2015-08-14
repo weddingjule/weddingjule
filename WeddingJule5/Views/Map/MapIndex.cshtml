@@ -11,7 +11,7 @@
     }
 </style>
 
-<div id="canvas" style="height: 600px; width:700px;"></div>
+<div id="canvas"></div>
 
 <!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
 <script type="text/javascript">
@@ -71,5 +71,9 @@
                 });
             })
         });
-    }
+    };
+
+
+    var h = $(window).height() * 0.65;
+    $('#canvas').height(h);
 </script>

@@ -1,15 +1,39 @@
 ﻿
-body {font-family: 'Times New Roman'; font-size:large; background-color:ivory; color:black; margin-left:10px; margin-right:10px; }
-DIV#total{background-color:black; color:white; font-family:'Times New Roman'; font-weight:700}
+body {
+    font-family: 'Times New Roman';
+    font-size: large;
+    color: black;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+    body.image {
+        background: url("../images/houseDesign.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+
+DIV.back {
+    background-color: white;
+}
+
+DIV#total {
+    background-color: black;
+    color: white;
+    font-family: 'Times New Roman';
+    font-weight: 700;
+}
 
 table {
     border-collapse: collapse;
     width: 100%;
 }
 
-table.format, th.format, td.format {
-    border: 1px solid green;
-}
+    table.format, th.format, td.format {
+        border: 1px solid green;
+    }
 
 th.format {
     height: 50px;
@@ -24,20 +48,20 @@ td {
     padding: 15px;
 }
 
-td.narrow{
- width: 50px;   
-}
+    td.narrow {
+        width: 50px;
+    }
 
-td.narrow{
- width: 50px;   
-}
+    td.narrow {
+        width: 50px;
+    }
 
 .field-validation-error {
     color: #6699CC;
-    font-weight:bold;
-    text-decoration:underline;
+    font-weight: bold;
+    text-decoration: underline;
 }
- 
+
 input.input-validation-error {
     border: 1px solid #006699;
     background-color: silver;

@@ -1,4 +1,5 @@
-﻿
+﻿<div id="calendar_basic" style="width: 950px; height: 200px;"></div>
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("visualization", "1.1", { packages: ["calendar"] });
@@ -30,17 +31,12 @@
 
             var options = {
                 tooltip: { isHtml: true },
-                title: "Распределение трат по дням",
-                height: 350,
+                title: "Распределение трат по дням"
             };
 
             chart.draw(dataTable, options);
         });
-    }
-
+    };
 </script>
-
-<div id="calendar_basic" style="width: 1000px; height: 350px;"></div>
-
 
 

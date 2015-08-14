@@ -13,6 +13,8 @@
     </div>
 </form>
 
+<div id="curve_chart"></div>
+
 <script type="text/javascript"
         src="https://www.google.com/jsapi?autoload={
             'modules':[{
@@ -20,7 +22,8 @@
               'version':'1',
               'packages':['corechart']
             }]
-          }"></script>
+          }">
+</script>
 <script type="text/javascript">
     google.setOnLoadCallback(drawChart);
 
@@ -58,15 +61,15 @@
         var options = {
             title: 'Траты по месяцам',
             curveType: 'function',
-            legend: { position: 'bottom' },
-            width: $(window).width() * 0.65,
-            height: $(window).height()* 0.65
+            legend: { position: 'bottom' }
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
 
         chart.draw(googleDataTable, options);
     }
+
+    var h = $(window).height()* 0.65;
+    $('#curve_chart').height(h);
 </script>
 
-<div id="curve_chart"></div>
