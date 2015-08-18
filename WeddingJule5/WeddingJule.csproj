@@ -162,7 +162,8 @@
     <Compile Include="Controllers\Google Chart\ChartCategoryController.cs" />
     <Compile Include="Controllers\ExpenseController.cs" />
     <Compile Include="Controllers\Google Chart\LineCategoryController.cs" />
-    <Compile Include="Controllers\TargetController.cs" />
+    <Compile Include="Controllers\Target\PurchaseController.cs" />
+    <Compile Include="Controllers\Target\TargetController.cs" />
     <Compile Include="Controllers\IpController.cs" />
     <Compile Include="Controllers\LiabilityController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -198,6 +199,10 @@
     <Compile Include="Migrations\201508061526230_AddTargetDB1.Designer.cs">
       <DependentUpon>201508061526230_AddTargetDB1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508140942525_AddPurchase.cs" />
+    <Compile Include="Migrations\201508140942525_AddPurchase.Designer.cs">
+      <DependentUpon>201508140942525_AddPurchase.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
@@ -217,7 +222,8 @@
     <Compile Include="Models\Liability\TransferLiabilityViewModel.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\PictureFolder\Picture.cs" />
-    <Compile Include="Models\Target.cs" />
+    <Compile Include="Models\TargetFolder\Purchase.cs" />
+    <Compile Include="Models\TargetFolder\Target.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWebSecurityService.cs" />
     <Compile Include="Services\WebSecurityService.cs" />
@@ -374,6 +380,7 @@
     <Content Include="Views\Calendar\Calendar.cshtml" />
     <Content Include="Views\Ip\Location.cshtml" />
     <Content Include="Views\Target\Target.cshtml" />
+    <Content Include="Views\Purchase\PurchaseList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
@@ -393,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508061526230_AddTargetDB1.resx">
       <DependentUpon>201508061526230_AddTargetDB1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508140942525_AddPurchase.resx">
+      <DependentUpon>201508140942525_AddPurchase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

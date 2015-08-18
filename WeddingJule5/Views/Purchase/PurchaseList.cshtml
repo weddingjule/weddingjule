@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Список покупок";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="back">
+    <div class="page-header">
+        <h1 align="center">Список покупок</h1>
+    </div>
+    <div ng-app="purchaseApp" ng-controller="purchaseController">
+        <div class="form-inline">
+            <div class="form-group">
+                <div class="col-lg-7">
+                    <input class="form-control" ng-model="name" placeholder="Цель" />
+                </div>
+                <div class="col-lg-1">
+                    <button class="btn btn-default" ng-click="addItem(name)">Добавить</button>
+                </div>
+            </div>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Покупка</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list.items">
+                    <td>{{item.name}}</td>
+                    <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
+<script>
+    var purchaseApp = angular.module("purchaseApp",[]);
+
+    purchaseApp.controller("purchaseController", function ($scope, $http) {
+        $http.get('GetData').success(function (data) {
+            var model = {
+                items: []
+            };
+            $scope.list = model;
+            
+            $.each(data, function (i, item) {
+                $scope.list.items.push(item);
+            });
+            
+        });
+
+        $scope.addItem = function (text) {
+            var purchase = {
+                name: text,
+            };
+            $scope.list.items.push(purchase);
+            $.ajax({
+                url: '/purchase/add',
+                type: 'POST',
+                data: JSON.stringify(purchase),
+                contentType: "application/json;charset=utf-8"
+            });
+        };
+
+        $scope.delete = function (item) {
+            var index = $scope.list.items.indexOf(item);
+            $scope.list.items.splice(index, 1);
+            $.ajax({
+                url: '/purchase/delete',
+                type: 'POST',
+                data: JSON.stringify(item),
+                contentType: "application/json;charset=utf-8"
+            });
+        };
+    });
+</script>

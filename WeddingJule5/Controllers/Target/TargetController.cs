@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WeddingJule.Models;
+using WeddingJule.Models.TargetFolder;
 
 namespace WeddingJule.Controllers.Google_Chart
 {

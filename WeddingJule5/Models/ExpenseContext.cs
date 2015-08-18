@@ -7,6 +7,7 @@ using WeddingJule.Models.Account;
 using WeddingJule.Models;
 using WeddingJule.Models.Map;
 using WeddingJule.Models.PictureFolder;
+using WeddingJule.Models.TargetFolder;
 
 namespace WeddingJule.Models
 {
@@ -20,5 +21,6 @@ namespace WeddingJule.Models
         public DbSet<Place> Places { get; set; }
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Target> Targets { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
     }
 }
