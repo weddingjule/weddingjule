@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Добавление новой затрататы";
+}
+@model WeddingJule.Models.Map.Place
+
+@using (Html.BeginForm("Create", "Expense", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true)
+            <div>
+                @Html.LabelFor(model => model.PlaceName)
+                <div>
+                    @Html.EditorFor(model => model.PlaceName)
+                    @Html.ValidationMessageFor(model => model.PlaceName, "")
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.GeoLong)
+                <div>
+                    @Html.EditorFor(model => model.GeoLong)
+                    @Html.ValidationMessageFor(model => model.GeoLong, "")
+                </div>
+            </div>
+            <div>
+                @Html.LabelFor(model => model.GeoLat)
+                <div>
+                    @Html.EditorFor(model => model.GeoLat)
+                    @Html.ValidationMessageFor(model => model.GeoLat, "")
+                </div>
+            </div>
+        }
+    </div>
+}

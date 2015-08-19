@@ -12,6 +12,7 @@
 </style>
 
 <div id="canvas"></div>
+@Html.ActionLink("Добавить точку", "addMapPoint", "Map", null, new { @class = "validateDialog", data_dialog_title = "Добавить" })
 
 <!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
 <script type="text/javascript">
@@ -25,20 +26,22 @@
 
         google.maps.visualRefresh = true;
         // установка основных координат
-        var FinlandGulf = new google.maps.LatLng(60.175062, 24.984668);
+        var palaceSquare = new google.maps.LatLng(59.938983, 30.315014);
 
         // Установка общих параметров отображения карты, как масштаб, центральная точка и тип карты
         var mapOptions = {
-            zoom: 6,
-            center: FinlandGulf,
+            zoom: 10,
+            center: palaceSquare,
             mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
         };
+
+
 
         // Встраиваем гугл-карты в элемент на странице и получаем объект карты
         var map = new google.maps.Map(document.getElementById("canvas"), mapOptions);
 
         var marker = new google.maps.Marker({
-            position: FinlandGulf,
+            position: palaceSquare,
             map: map,
             title: '  '
         });
@@ -76,4 +79,62 @@
 
     var h = $(window).height() * 0.65;
     $('#canvas').height(h);
+</script>
+
+
+<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $(".validateDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    resizable: false,
+                    id: 'dialog',
+                    modal: true,
+                    width: 'auto',
+                    buttons: {
+                        "Сохранить": {
+                            text: "Сохранить",
+                            id: "okbtnid",
+                            click: function () {
+
+                                var placeName = $('#PlaceName').val();
+                                var GeoLat = $('#GeoLat').val();
+                                var GeoLatFloat = parseFloat(GeoLat);
+                                var GeoLong = $('#GeoLong').val();
+                                var GeoLongFloat = parseFloat(GeoLong);
+                                var place = { Id: 1, PlaceName: placeName, Times: 1, GeoLat: GeoLatFloat, GeoLong: GeoLongFloat };
+                                var placeJson = JSON.stringify(place);
+
+                                $.ajax({
+                                    url: '/map/saveMapPoint',
+                                    type: 'POST',
+                                    data: placeJson,
+                                    contentType: "application/json;charset=utf-8",
+                                    success: function () {
+                                        GetMap();
+                                    }
+                                });
+
+                                $(this).dialog('close');
+                            }
+                        }
+                    }
+                });
+        });
+
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
 </script>

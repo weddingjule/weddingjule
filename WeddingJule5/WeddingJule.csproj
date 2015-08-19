@@ -381,6 +381,7 @@
     <Content Include="Views\Ip\Location.cshtml" />
     <Content Include="Views\Target\Target.cshtml" />
     <Content Include="Views\Purchase\PurchaseList.cshtml" />
+    <Content Include="Views\Map\addMapPoint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
