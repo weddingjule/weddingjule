@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Список покупок";
+    ViewBag.Title = "Предметы подготовки";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -7,13 +7,13 @@
 
 <div class="back">
     <div class="page-header">
-        <h1 align="center">Список покупок</h1>
+        <h1 align="center">Предметы подготовки</h1>
     </div>
-    <div ng-app="purchaseApp" ng-controller="purchaseController">
+    <div ng-app="trainApp" ng-controller="trainController">
         <div class="form-inline">
             <div class="form-group">
                 <div class="col-lg-7">
-                    <input class="form-control" ng-model="name" placeholder="Цель" />
+                    <input class="form-control" ng-model="name" placeholder="Предмет" />
                 </div>
                 <div class="col-lg-1">
                     <button class="btn btn-default" ng-click="addItem(name)">Добавить</button>
@@ -23,7 +23,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Покупка</th>
+                    <th>Предмет</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,30 +38,30 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.11/angular.min.js"></script>
 <script>
-    var purchaseApp = angular.module("purchaseApp",[]);
+    var trainApp = angular.module("trainApp",[]);
 
-    purchaseApp.controller("purchaseController", function ($scope, $http) {
+    trainApp.controller("trainController", function ($scope, $http) {
         $http.get('GetData').success(function (data) {
             var model = {
                 items: []
             };
             $scope.list = model;
-            
+
             $.each(data, function (i, item) {
                 $scope.list.items.push(item);
             });
-            
+
         });
 
         $scope.addItem = function (text) {
-            var purchase = {
+            var train = {
                 name: text,
             };
-            $scope.list.items.push(purchase);
+            $scope.list.items.push(train);
             $.ajax({
-                url: '/purchase/add',
+                url: '/train/add',
                 type: 'POST',
-                data: JSON.stringify(purchase),
+                data: JSON.stringify(train),
                 contentType: "application/json;charset=utf-8"
             });
         };
@@ -70,7 +70,7 @@
             var index = $scope.list.items.indexOf(item);
             $scope.list.items.splice(index, 1);
             $.ajax({
-                url: '/purchase/delete',
+                url: '/train/delete',
                 type: 'POST',
                 data: JSON.stringify(item),
                 contentType: "application/json;charset=utf-8"

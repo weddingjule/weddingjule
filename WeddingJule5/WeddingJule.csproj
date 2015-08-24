@@ -169,6 +169,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
+    <Compile Include="Controllers\Target\TrainController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +204,10 @@
     <Compile Include="Migrations\201508140942525_AddPurchase.Designer.cs">
       <DependentUpon>201508140942525_AddPurchase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201508240555435_AddTrain.cs" />
+    <Compile Include="Migrations\201508240555435_AddTrain.Designer.cs">
+      <DependentUpon>201508240555435_AddTrain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Account\LoginModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
@@ -224,6 +229,7 @@
     <Compile Include="Models\PictureFolder\Picture.cs" />
     <Compile Include="Models\TargetFolder\Purchase.cs" />
     <Compile Include="Models\TargetFolder\Target.cs" />
+    <Compile Include="Models\TargetFolder\Train.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IWebSecurityService.cs" />
     <Compile Include="Services\WebSecurityService.cs" />
@@ -382,6 +388,7 @@
     <Content Include="Views\Target\Target.cshtml" />
     <Content Include="Views\Purchase\PurchaseList.cshtml" />
     <Content Include="Views\Map\addMapPoint.cshtml" />
+    <Content Include="Views\Train\Train.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201505181300371_InitialCreate.resx">
@@ -404,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201508140942525_AddPurchase.resx">
       <DependentUpon>201508140942525_AddPurchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201508240555435_AddTrain.resx">
+      <DependentUpon>201508240555435_AddTrain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

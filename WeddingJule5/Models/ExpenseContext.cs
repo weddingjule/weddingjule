@@ -22,5 +22,6 @@ namespace WeddingJule.Models
         public DbSet<Picture> Pictures { get; set; }
         public DbSet<Target> Targets { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Train> Trains { get; set; }
     }
 }

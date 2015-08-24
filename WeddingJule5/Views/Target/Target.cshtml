@@ -5,7 +5,9 @@
 
 <link href="~/Content/angular-datepicker.css" rel="stylesheet" type="text/css" />
 
-@Html.ActionLink("Список покупок", "PurchaseList", "Purchase")
+
+@Html.ActionLink("Покупки", "PurchaseList", "Purchase")
+@Html.ActionLink("Предметы", "Train", "Train")
 
 <div class="back">
     <div class="page-header">
@@ -75,10 +77,15 @@
         });
 
         $scope.addItem = function (text, date) {
-            var dd = date.substring(0, 2);
-            var mm = date.substring(3);
-            var m = parseInt(mm) - 1;
-            var d = new Date(2015, m, dd);
+            var d = null;
+            if (date == null)
+                d = new Date();
+            else {
+                var dd = date.substring(0, 2);
+                var mm = date.substring(3);
+                var m = parseInt(mm) - 1;
+                d = new Date(2015, m, dd);
+            }
             var target = {
                 id: null,
                 name: text,
