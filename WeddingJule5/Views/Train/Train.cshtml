@@ -45,6 +45,7 @@
             var model = {
                 items: []
             };
+
             $scope.list = model;
 
             $.each(data, function (i, item) {
@@ -57,7 +58,10 @@
             var train = {
                 name: text,
             };
+
+            $scope.name = null;
             $scope.list.items.push(train);
+
             $.ajax({
                 url: '/train/add',
                 type: 'POST',

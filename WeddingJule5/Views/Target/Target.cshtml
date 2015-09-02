@@ -103,7 +103,10 @@
                 date: d,
                 done: false
             };
+
+            $scope.name = null;
             $scope.list.items.push(target);
+
             $.ajax({
                 url: '/target/add',
                 type: 'POST',

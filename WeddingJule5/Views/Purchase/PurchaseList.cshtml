@@ -57,7 +57,10 @@
             var purchase = {
                 name: text,
             };
+
+            $scope.name = null;
             $scope.list.items.push(purchase);
+
             $.ajax({
                 url: '/purchase/add',
                 type: 'POST',
