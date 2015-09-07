@@ -14,7 +14,7 @@
         <h1 align="center">Список задач</h1>
     </div>
     <div ng-app="targetApp" ng-controller="targetController">
-        <label><input type="checkbox" ng-model="showNotDoneTarget" ng-click="refreshData(showNotDoneTarget)" />Отметить незаверешенные</label>
+        <label><input type="checkbox" ng-model="showOnlyNotDoneTargets" />Отметить незаверешенные</label>
         <div class="form-inline">
             <div class="form-group">
                 <div class="col-lg-7">
@@ -40,12 +40,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in list.items | orderBy:sortparam:sortDirection"
-                    ng-style="(item.isToday && {'background-color': 'yellow'} )
-                       || (item.isExpired && {'background-color': 'pink'})">
+                    ng-style="(item.isToday && {'background-color': 'yellow'} ) || (item.isExpired && {'background-color': 'pink'})"
+                    ng-show="(showOnlyNotDoneTargets && !item.done) || !showOnlyNotDoneTargets">
+
                     <td>{{item.name}}</td>
                     <td>{{item.date | date:'dd-MM'}}</td>
-                    <td><input type="checkbox" ng-model="item.done" ng-click="update(item)"/></td>
+                    <td><input type="checkbox" ng-model="item.done" ng-click="update(item)" /></td>
                     <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
+
                 </tr>
             </tbody>
         </table>
@@ -59,7 +61,7 @@
 
     targetApp.controller("targetController", function ($scope, $http) {
 
-        $scope.showNotDoneTarget = true;
+        $scope.showOnlyNotDoneTargets = true;
 
         $scope.sortparam = 'date';
         $scope.sortDirection = false;
@@ -75,11 +77,14 @@
                 $scope.sortparam = column;
         };
 
-        $scope.refreshData = function (showNotDoneTarget) {
+        $scope.changeDoneVisibility = function (showOnlyNotDoneTargets) {
+            $scope.showOnlyNotDoneTargets = showOnlyNotDoneTargets;
+        };
+
+        $scope.refreshData = function () {
             $http({
                 url: 'GetData',
-                method: "GET",
-                params: { showNotDoneTarget: showNotDoneTarget }
+                method: "GET"
             }).success(function (data) {
                 var model = {
                     items: []
@@ -97,7 +102,7 @@
             });
         };
 
-        $scope.refreshData($scope.showNotDoneTarget);
+        $scope.refreshData();
 
         $scope.addItem = function (text, date) {
             var d = null;

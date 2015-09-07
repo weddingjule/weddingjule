@@ -33,17 +33,9 @@ namespace WeddingJule.Controllers.Google_Chart
             return View("Target");
         }
 
-        public JsonResult GetData(bool? showNotDoneTarget)
+        public JsonResult GetData()
         {
-            if (showNotDoneTarget == null || showNotDoneTarget.Value)
-            {
-                IEnumerable<Target> targets = db.Targets.Where<Target>(t => t.done == false).AsEnumerable<Target>();
-                return Json(targets, JsonRequestBehavior.AllowGet);
-            }
-            else if (!showNotDoneTarget.Value)
-                return Json(db.Targets, JsonRequestBehavior.AllowGet);
-            else
-                return null;
+            return Json(db.Targets, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult delete(Target target)
