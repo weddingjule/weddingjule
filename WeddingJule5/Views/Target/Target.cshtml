@@ -33,18 +33,18 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Цель</th>
-                    <th>Дата</th>
+                    <th ng-click="sort('name')">Цель</th>
+                    <th ng-click="sort('date')">Дата</th>
                     <th>Сделано</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list.items | orderBy:'date'"
+                <tr ng-repeat="item in list.items | orderBy:sortparam:sortDirection"
                     ng-style="(item.isToday && {'background-color': 'yellow'} )
                        || (item.isExpired && {'background-color': 'pink'})">
                     <td>{{item.name}}</td>
                     <td>{{item.date | date:'dd-MM'}}</td>
-                    <td><input type="checkbox" ng-model="item.done" ng-click="update(item)" ng-style="somestyle" /></td>
+                    <td><input type="checkbox" ng-model="item.done" ng-click="update(item)"/></td>
                     <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
                 </tr>
             </tbody>
@@ -61,7 +61,19 @@
 
         $scope.showNotDoneTarget = true;
 
-        $scope.somestyle = { background: 'yellow', color: 'red' };
+        $scope.sortparam = 'date';
+        $scope.sortDirection = false;
+
+        $scope.sort = function (column) {
+            if ($scope.sortparam == column) {
+                if ($scope.sortDirection == true)
+                    $scope.sortDirection = false;
+                else
+                    $scope.sortDirection = true;
+            }
+            else
+                $scope.sortparam = column;
+        };
 
         $scope.refreshData = function (showNotDoneTarget) {
             $http({

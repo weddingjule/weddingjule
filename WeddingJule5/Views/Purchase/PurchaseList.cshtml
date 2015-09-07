@@ -23,11 +23,11 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Покупка</th>
+                    <th ng-click="sort('done')">Покупка</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in list.items">
+                <tr ng-repeat="item in list.items | orderBy:'name':sortDirection">
                     <td>{{item.name}}</td>
                     <td><button class="btn btn-default" ng-click="delete(item)">Удалить</button></td>
                 </tr>
@@ -78,6 +78,14 @@
                 data: JSON.stringify(item),
                 contentType: "application/json;charset=utf-8"
             });
+        };
+
+        $scope.sortDirection = false;
+        $scope.sort = function () {
+            if ($scope.sortDirection == true)
+                $scope.sortDirection = false;
+            else
+                $scope.sortDirection = true;
         };
     });
 </script>
