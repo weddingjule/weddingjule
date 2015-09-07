@@ -5,7 +5,6 @@
 
 <link href="~/Content/angular-datepicker.css" rel="stylesheet" type="text/css" />
 
-
 @Html.ActionLink("Покупки", "PurchaseList", "Purchase")
 @Html.ActionLink("Предметы", "Train", "Train")
 
@@ -40,8 +39,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="item in list.items | orderBy:sortparam:sortDirection"
-                    ng-style="(item.isToday && {'background-color': 'yellow'} ) || (item.isExpired && {'background-color': 'pink'})"
-                    ng-show="(showOnlyNotDoneTargets && !item.done) || !showOnlyNotDoneTargets">
+                    ng-style="set_color(item)"
+                    ng-show="set_visibility(item)">
 
                     <td>{{item.name}}</td>
                     <td>{{item.date | date:'dd-MM'}}</td>
@@ -95,8 +94,6 @@
                 $.each(data, function (i, item) {
                     var date = item.date;
                     item.date = new Date(parseInt(date.replace('/Date(', '')));
-                    item.isToday = (today.toDateString() === item.date.toDateString());
-                    item.isExpired = item.date < today;
                     $scope.list.items.push(item);
                 });
             });
@@ -104,16 +101,31 @@
 
         $scope.refreshData();
 
+        $scope.set_visibility = function (target) {
+            return ($scope.showOnlyNotDoneTargets && !target.done) || !$scope.showOnlyNotDoneTargets;
+        };
+
+        $scope.set_color = function (target) {
+            var today = new Date();
+
+            if (target.date.toDateString() == today.toDateString())
+                return { 'background-color': 'yellow' };
+            if (target.date < today)
+                return { 'background-color': 'pink' };
+            else
+                return { 'background-color': 'transparent' };
+        };
+
         $scope.addItem = function (text, date) {
-            var d = null;
-            if (date == null)
-                d = new Date();
-            else {
+            var d = new Date();
+
+            if (date != null) {
                 var dd = date.substring(0, 2);
                 var mm = date.substring(3);
                 var m = parseInt(mm) - 1;
                 d = new Date(2015, m, dd);
-            }
+            };
+
             var target = {
                 id: null,
                 name: text,
@@ -150,22 +162,6 @@
                 data: JSON.stringify(item),
                 contentType: "application/json;charset=utf-8"
             });
-        };
-
-        $scope.getDayClass = function (date, mode) {
-            if (mode === 'day') {
-                var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-                for (var i = 0; i < $scope.events.length; i++) {
-                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-                    if (dayToCheck === currentDay) {
-                        return $scope.events[i].status;
-                    }
-                }
-            }
-
-            return '';
         };
     });
 </script>
